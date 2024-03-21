@@ -1,0 +1,23 @@
+.head{
+    background-color: #3F5B82;
+}
+.body{
+    background-color: #4C495D;
+}
+.btn{
+    background-color: #2D283E;
+    outline: none;
+    color: aliceblue;
+}
+#level{
+    background-color:#4D6D9A;
+}
+#Class{
+    background-color:#86B3D1;
+}
+#Courses{
+    background-color:#99CED3;
+}
+#speciality{
+    background-color:#EDB5BF;
+}
