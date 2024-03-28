@@ -1,0 +1,48 @@
+<div class="container d-flex border border-dark flex-column chat-container">
+  <div class="chat-header">
+    <h1>Community Chat</h1>
+  </div>
+  <div class="chat-messages">
+    <div
+      class="row ms-2 message-container d-flex flex-row"
+      *ngFor="let message of messages"
+    >
+      <div class="message col-7">
+        <i class="fa-solid fa-3x mt-2 fa-circle-user"></i>
+        <div class="h3">{{ c | date : "dd/MM/yyyy" }}</div>
+        <div class="h4 sender">
+          {{ message.sender }} : {{ message.content }}
+        </div>
+      </div>
+      <div class="text-center offset-1 col-md">
+        <button type="button">
+          <i class="fa-solid fa-2x fa-thumbs-up" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="text-center col-md">
+        <button type="button">
+          <i class="fa-solid fa-2x fa-thumbs-down" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="text-center col-md">
+        <button type="button">
+          <i aria-hidden="true" class="fa-regular fa-2x fa-comment"></i>
+        </button>
+      </div>
+      <div class="text-center col-md">
+        <button type="button">
+          <i id="rep" class="fa-solid fa-flag fa-2x"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="chat-input">
+    <input
+      type="text"
+      class="border border-black"
+      [(ngModel)]="newMessage"
+      placeholder="{{ bc }}"
+    />
+    <button (click)="sendMessage()">Send</button>
+  </div>
+</div>

@@ -9,6 +9,6 @@ export class LearnService {
   constructor(private http:HttpClient) { }
 
   getALL(n:string){
-    return this.http.get(`http://localhost/api/${n}`)
+    return this.http.get(`http://localhost/learnup/${n}`)
   }
 }

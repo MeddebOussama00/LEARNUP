@@ -1,74 +1,89 @@
-<div class="head boder border-bottom">
-  <div class="text-center">
-    <img
-      src="assets/img/dog.jpg"
-      class="rounded img-fluid mt-2 dog"
-      alt="..."
-    />
-    <h3 class="title pb-3 pt-2">LearnUp</h3>
+<div class="head text-center">
+  <img src="assets/img/dog.jpg" class="rounded img-fluid mt-2 dog" alt="..." />
+  <h3 class="title pb-3 pt-2">LearnUp</h3>
+  <div>
+    <i class="fa-solid icon fa-2x-md fa-4x position-absolute fa-user-large"></i>
   </div>
-  <i class="fa-solid icon fa-2x-md fa-4x position-absolute fa-user-large"></i>
 </div>
+
 <div class="body">
   <div class="container">
-    <div class="row pt-5 d-flex justify-content-between">
-      <div class="dropdown col-md">
-        <button
-          id="level"
-          class="btn btn-secondary dropdown-toggle"
-          type="button"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          level
-        </button>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">Action</a></li>
-          <li><a class="dropdown-item" href="#">Another action</a></li>
-          <li><a class="dropdown-item" href="#">Something else here</a></li>
-        </ul>
+    <form [formGroup]="f" (ngSubmit)="onSubmit()">
+      <div class="row pt-5 form-group justify-content-between">
+        <div class="col-md col-sm-6">
+          <div class="dropdown">
+            <select
+              id="level"
+              formControlName="level"
+              class="form-control"
+              aria-label="Default select example"
+              data-bs-toggle="dropdown"
+              data-bs-touch="false"
+              required
+            >
+              <option value="">Select a level</option>
+              <option value="A">Level A</option>
+              <option value="B">Level B</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md d-none d-md-block">
+          <div class="dropdown">
+            <select
+              id="class"
+              formControlName="class"
+              class="form-control"
+              aria-label="Default select example"
+              data-bs-toggle="dropdown"
+              data-bs-touch="false"
+              required
+            >
+              <option value="">Select a class</option>
+              <option value="1">Class 1</option>
+              <option value="2">Class 2</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md d-none d-md-block">
+          <div class="dropdown">
+            <select
+              id="speciality"
+              formControlName="speciality"
+              class="form-control"
+              aria-label="Default select example"
+              data-bs-toggle="dropdown"
+              data-bs-touch="false"
+              required
+            >
+              <option value="">Select a level</option>
+              <option value="A">Level A</option>
+              <option value="B">Level B</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md col-sm-6 d-none d-md-block">
+          <div class="dropdown">
+            <select
+              id="cours"
+              formControlName="course"
+              class="form-control"
+              aria-label="Default select example"
+              data-bs-toggle="dropdown"
+              data-bs-touch="false"
+              required
+            >
+              <option value="">Select a Cours</option>
+              <option value="A">Cours A</option>
+              <option value="B">Cours B</option>
+            </select>
+          </div>
+        </div>
       </div>
-      <div class="dropdown col-md">
-        <button
-          id="class"
-          class="btn btn-secondary dropdown-toggle"
-          type="button"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          Class
-        </button>
-        <ul class="dropdown-menu"></ul>
+      <div class="row dbtn position-absolute start-50 translate-middle-x">
+        <div class="col text-center">
+          <button type="submit" id="btn" class="btn btn-lg">Search</button>
+        </div>
       </div>
-      <div class="dropdown col-md">
-        <button
-          id="speciality"
-          class="btn btn-secondary dropdown-toggle"
-          type="button"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          Speciality
-        </button>
-        <ul class="dropdown-menu"></ul>
-      </div>
-      <div class="dropdown col-md">
-        <button
-          id="Courses"
-          class="btn dropdown-toggle"
-          type="button"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          Cours
-        </button>
-        <ul class="dropdown-menu"></ul>
-      </div>
-    </div>
-    <div class="row dbtn position-absolute start-50 translate-middle-x">
-      <div class="col">
-        <button type="click" id="btn" class="btn btn-lg">Search</button>
-      </div>
-    </div>
+    </form>
   </div>
 </div>

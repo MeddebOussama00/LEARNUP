@@ -17,28 +17,12 @@
     padding: 20px 55px;
 }
 .icon{
-    top: 10px;  /* Adjust distance from top */
-    right: 15px;  /* Adjust distance from left */
-    /* Increase size */
-    display: flex; /* Center content horizontally */
+    top: 10px;  
+    right: 15px;  
+      display: flex; 
     justify-content: center;
     align-items: center;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .dropdown-toggle{
     padding: 10px 45px;
     font-size: 22px;
@@ -63,3 +47,56 @@
 .title{
     font-family:Arial, Helvetica, sans-serif;
 }
+/*.head {
+    background-color: #3F5B82;
+    height: 38vh;
+  }
+  
+.body {
+    background-color: #4C495D;
+    min-height: 62vh;
+  }
+  
+  .dbtn {
+    bottom: 30px;
+  }
+  
+  #btn {
+    background-color: #2D283E;
+    outline: none;
+    color: aliceblue;
+    padding: 20px 55px;
+  }
+  
+  .icon {
+    top: 10px;
+    justify-content: center;
+    align-items: center;
+  }
+  img{
+    width: 100px;
+    height: 100px;
+  }
+  .dropdown-toggle {
+    padding: 10px 45px;
+    font-size: 22px;
+  }
+  
+  #level {
+    background-color: #4D6D9A;
+  }
+  
+  #class {
+    background-color: #86B3D1;
+  }
+  
+  #Courses {
+    background-color: #99CED3;
+  }
+  
+  #speciality {
+    background-color: #EDB5BF;
+  }
+  
+  .dog {
+    height: 17}*/
