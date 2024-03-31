@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, Input } from '@angular/core';
 
 @Component({
   selector: 'app-cour',
@@ -6,6 +6,7 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
   styleUrl: './cour.component.css'
 })
 export class CourComponent {
+  @Input() cours: any;
   public like=0
   public dislike=0
   public isLiked = false;
@@ -23,5 +24,16 @@ export class CourComponent {
     this.isDisliked=true
     this.dislike++;
   }
-
+  download(){
+    const arrayBuffer = new Uint8Array(this.cours.f).buffer;
+    const blob = new Blob([arrayBuffer], {type: "application/pdf"});
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = this.cours.name;
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+  }
 }
+

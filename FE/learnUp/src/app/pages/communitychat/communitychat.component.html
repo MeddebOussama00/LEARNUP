@@ -1,0 +1,47 @@
+<div class="container bcolor">
+  <ul class="nav row rounded-pill justify-content-center">
+    <li class="col-3 nav-item" routerLinkActive="active">
+      <a
+        class="nav-link text-center fs-3 text-light"
+        aria-current="page"
+        routerLink="/home/Cour"
+        >Courses</a
+      >
+    </li>
+    <li
+      class="col-3 nav-item border-start border-end border-black border-3"
+      routerLinkActive="active"
+    >
+      <a class="nav-link text-center fs-3 text-light" routerLink="/home/Examn"
+        >Exercises</a
+      >
+    </li>
+    <li class="col-3 nav-item" routerLinkActive="active">
+      <a class="nav-link text-center fs-3 text-light" routerLink="/home/chat"
+        >Community Chat</a
+      >
+    </li>
+  </ul>
+  <div class="d-flex border border-dark flex-column chat-container">
+    <div class="chat-header">
+      <h1>Community Chat</h1>
+      <div class="chat-messages">
+        <div
+          class="row ms-2 message-container d-flex flex-row"
+          *ngFor="let message of messages"
+        >
+          <app-chat [message]="message"></app-chat>
+        </div>
+      </div>
+      <div class="chat-input">
+        <input
+          type="text"
+          [(ngModel)]="newMessage"
+          placeholder="{{ bc }}"
+          class="border border-black"
+        />
+        <button (click)="chatsend()">Send</button>
+      </div>
+    </div>
+  </div>
+</div>

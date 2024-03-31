@@ -1,7 +1,42 @@
+.bcolor {
+  background-color: #4C495D;
+  min-height: 80vh;
+}
+.fa-square-plus {
+  color:#2D283E;
+}
+
+.nav {
+  background-color: #2D283E;
+}
+.nav-link {
+  color: #fff; /* Set text color to white */
+  text-decoration: none; /* Remove underline */
+}
+
+@media (max-width: 768px) {
+  .nav {
+    width: 100%; 
+  }
+}
+
+@media (max-width: 991.98px) {
+  .navbar-nav {
+    flex-direction: column;
+  }
+
+  .nav-item {
+    margin: 10px 0;
+  }
+
+  .nav-link {
+    padding: 0;
+  }
+}
 .chat-container {
   margin-top: 30px;
-  min-height: 500px;
   border-radius: 5px;
+  min-height: 400px;
   padding: 10px;
   background-color: #eeeeee2b;
 }
