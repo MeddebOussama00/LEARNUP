@@ -1,28 +1,35 @@
 import { Injectable } from '@angular/core';
-
-interface Message {
+export interface Message {
   sender: string;
   content: string;
   date: Date;
   comments: string[];
 }
-
 @Injectable({
   providedIn: 'root',
 })
 export class ChatService {
-  //readonly DEFAULT_MESSAGE = 'Type your message here...';
   messages: Message[] = [];
   newMessage: string = '';
   bc = 'Type your message here...';
-  setMessage(s:string){
-    this.newMessage=s;
+
+  setMessage(s: string) {
+    this.newMessage = s;
   }
-  sendMessage(s:string) {
-    if (s) {
+
+  sendMessage(s: string) {
+    if (s && this.bc!== 'Type your message here...') {
+      const message = this.messages.find(m => m.sender === 'You');
+      if (message) {
+        message.content = s;
+        message.comments.push(s);
+        this.newMessage = '';
+        this.bc = 'Type your message here...';
+      }
+    } else {
       const message: Message = {
         sender: 'You',
-        content: this.newMessage,
+        content: s,
         date: new Date(),
         comments: [],
       };
@@ -30,46 +37,20 @@ export class ChatService {
       this.newMessage = '';
     }
   }
-  getMs(){
-    return this.messages
-  }
-  addComment(message: Message, comment: string) {
-    message.comments.push(comment);
-    this.messages.push({ ...message, comments: [...message.comments, comment] });
+
+  getMs() {
+    return this.messages;
   }
 
-  comment(message: Message) {
-    if (this.newMessage) {
-      this.addComment(message, this.newMessage);
-      this.newMessage = '';
+  addComment(message: Message, comment: string) {
+    if (!message.comments) {
+      message.comments = [];
     }
-    this.bc = `repondre a ${message.sender}`;
+    message.comments.push(comment);
+    this.messages = this.messages.map((m) => (m === message? {...message, comments: [...message.comments, comment] } : m));
+  }
+
+  chatComment(message: Message) {
+    this.bc = `Reply to ${message.sender}`;
   }
 }
-
-
-
-/*import { Injectable } from '@angular/core';
-
-@Injectable({
-  providedIn: 'root'
-})
-export class ChatService {
-
-  constructor() { }
-  messages: {sender: string, content: string,date:Date, comments: Array<string> }[]=[]
-  newMessage: string = '';
-  bc="Type your message here...";
-  sendMessage() {
-    if (this.newMessage) {
-      this.messages.push({ sender: 'You', content: this.newMessage,date:new Date(),comments:[] });
-      this.newMessage = '';
-    }}
-    commente(message:any){
-      this.bc=`repondre a ${message.sender}`;
-      if(this.newMessage){
-        this.messages.push({ sender: 'commenter à you  ', content: this.newMessage,date:new Date(),comments:[] })
-        this.messages.push({ sender: 'You', content: this.newMessage,date:new Date(),comments:[this.newMessage] });
-        this.newMessage = '';
-      }
-}*/

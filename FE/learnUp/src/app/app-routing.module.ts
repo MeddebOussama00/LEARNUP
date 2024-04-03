@@ -8,10 +8,11 @@ import { HOMEComponent } from './pages/home/home.component';
 import { CoursesComponent } from './pages/courses/courses.component';
 import { LogInComponent } from './pages/log-in/log-in.component';
 import { LogUpComponent } from './pages/log-up/log-up.component';
+import { ReportComponent } from './pages/report/report.component';
 
 const routes: Routes = [
-  { path: 'login', component: LogInComponent },
-  { path: 'logUP', component: LogUpComponent },
+
+  {path:'raport',component:ReportComponent},
   {
     path: 'Search',
     component: SearchComponent

@@ -79,3 +79,6 @@ button {
 button:hover {
   background-color: blue;
 }
+.sender{
+  font-family: 'Roboto', sans-serif;
+}

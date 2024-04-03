@@ -1,22 +1,58 @@
 <div class="row ms-2 message-container d-flex flex-row">
-  <div class="message col-7">
-    <i class="fa-solid fa-3x mt-2 fa-circle-user"></i>
-    <div class="h3">{{ message.date }}</div>
-    <div class="h4 sender">{{ message.sender }} : {{ message.content }}</div>
+  <div class="message col-7 d-flex align-items-center">
+    <div class="me-3">
+      <i class="fa-solid fa-3x mt-2 fa-circle-user"></i>
+    </div>
+    <div class="message-content">
+      <div class="h3">{{ message.date | date: 'h:mm:ss' }}</div>
+      <div class="h5 sender">{{ message.sender }} : {{ message.content }}</div>
+      <div class="comments">
+        <div class="comment" *ngFor="let comment of message.comments">
+          {{ comment }}
+        </div>
+      </div>
+    </div>
   </div>
   <div class="text-center offset-1 col-md">
-    <button type="button">
-      <i class="fa-solid fa-2x fa-thumbs-up" aria-hidden="true"></i>
+
+    <button class="btn" (click)="likeCount()">
+      <i
+        class="fa-solid fa-2x fa-thumbs-up"
+        [ngClass]="{ 'text-success': isLiked }"
+        aria-hidden="true"
+      ></i>
     </button>
+    <b [ngClass]="{ 'text-success': isLiked }">{{ like }}</b>
   </div>
   <div class="text-center col-md">
-    <button type="button">
-      <i class="fa-solid fa-2x fa-thumbs-down" aria-hidden="true"></i>
+    <button class="btn" (click)="dislikeCount()" type="button">
+      <i
+        class="fa-solid fa-2x fa-thumbs-down"
+        [ngClass]="{ 'text-danger': isDisliked }"
+        aria-hidden="true"
+      ></i>
     </button>
+    <b [ngClass]="{ 'text-muted': !isDisliked, 'text-danger': isDisliked }">
+      {{ dislike }}
+    </b>
   </div>
   <div class="text-center col-md">
-    <button type="button" (click)="Chatcommente(message)">
+    <button type="button" (click)="chatComment(message)">
       <i aria-hidden="true" class="fa-regular fa-2x fa-comment"></i>
+      <ng-container *ngIf="!message.comments; else showCommentInput">
+        <span class="placeholder">Reply</span>
+      </ng-container>
+      <ng-template #showCommentInput>
+        <ng-container *ngIf="bc !== 'Type your message here...'">
+          <input *ngIf="!message.comments"
+            type="text"
+            [(ngModel)]="chatServiceAccessor.newMessage"
+            placeholder="Type your comment here..."
+            class="border border-black"
+          />
+          <button *ngIf="!message.comments" (click)="onButtonClick(message)">Send</button>
+        </ng-container>
+      </ng-template>
     </button>
   </div>
   <div class="text-center col-md">
@@ -25,3 +61,10 @@
     </button>
   </div>
 </div>
+<input *ngIf="bc !== 'Type your message here...' && message.comments"
+  type="text"
+  [(ngModel)]="chatServiceAccessor.newMessage"
+  placeholder="Type your comment here..."
+  class="border border-black"
+/>
+<button *ngIf="bc !== 'Type your message here...' && message.comments" (click)="onButtonClick(message)">Send</button>

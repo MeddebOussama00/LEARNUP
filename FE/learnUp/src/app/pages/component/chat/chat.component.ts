@@ -1,66 +1,39 @@
-
 import { Component, Input } from '@angular/core';
-import { ChatService } from '../../service/chat.service';
+import { ChatService,Message } from '../../service/chat.service';
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
-  styleUrl: './chat.component.css'
+  styleUrls: ['./chat.component.css'],
 })
 export class ChatComponent {
-  @Input() message:any={}
-  constructor(private chat:ChatService){}
+  @Input() message!: Message;
+  @Input() bc!: string;
+  public chatServiceAccessor = this.chatService;
+  public like=0
+  public dislike=0
+  public isLiked = false;
+  public isDisliked = false;
+  constructor(private chatService: ChatService) {}
 
-  Chatcommente(message:any){
-    this.chat.comment(message)
+  chatComment(message: Message) {
+    this.bc = message.sender;
   }
-}
-
-/*  import { Component } from '@angular/core';
-import { DatePipe } from '@angular/common';
-
-interface Message {
-  sender: string;
-  content: string;
-  comments?: Array<string>;
-}
-
-@Component({
-  selector: 'app-chat',
-  templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.css']
-})
-export class ChatComponent {
-  messages: Message[] = [];
-  newMessage: string = '';
-  c = new Date();
-
-  constructor(private datePipe: DatePipe) {}
-
-  sendMessage() {
-    console.log();
-    if (this.newMessage) {
-      this.messages.push({ sender: 'You', content: this.newMessage });
-      this.newMessage = '';
+  onButtonClick(message: Message) {
+    if (this.bc !== 'Type your message here...') {
+      this.chatServiceAccessor.addComment(message, this.chatServiceAccessor.newMessage);
+      this.chatServiceAccessor.newMessage = '';
+      this.bc = 'Type your message here...';
     }
   }
-
-  commente(message: Message) {
-    this.c = new Date();
-    if (this.newMessage) {
-      message.comments = message.comments || [];
-      message.comments.push(this.newMessage);
-      this.messages.push({
-        sender: 'commenter',
-        content: this.newMessage,
-        comments: []
-      });
-      this.newMessage = '';
+  likeCount(): void {
+    this.isLiked=true
+    if(this.like>-1){
+      this.like ++;
     }
   }
-}*/
-
-
-
-
-  
+  dislikeCount(): void {
+    this.isDisliked=true
+    this.dislike++;
+  }
+}

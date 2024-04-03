@@ -30,14 +30,14 @@
           class="row ms-2 message-container d-flex flex-row"
           *ngFor="let message of messages"
         >
-          <app-chat [message]="message"></app-chat>
+          <app-chat [message]="message" [bc]="message.sender"></app-chat>
         </div>
       </div>
       <div class="chat-input">
         <input
           type="text"
           [(ngModel)]="newMessage"
-          placeholder="{{ bc }}"
+          placeholder="{{ bc || 'Type a message here...' }}"
           class="border border-black"
         />
         <button (click)="chatsend()">Send</button>
