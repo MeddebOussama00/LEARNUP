@@ -1,12 +1,12 @@
-<div class="row mt-3 d-flex align-items-center h-100">
+<div class="row mt-3 d-flex align-items-center h-100" *ngIf="cours">
   <div class="col-md-8 post">
     <div class="row d-flex justify-content-between">
       <div class="col-md-3">
         <i class="fa-solid fa-6x fa-file-pdf"></i>
       </div>
       <div class="col">
-        <p class="fs-4">{{ cours.name }}</p>
-        <p class="fs-4">{{ cours.dateFile }}</p>
+        <p class="fs-4">{{ cours.title }}</p>
+        <p class="fs-4">{{ cours.date }}</p>
       </div>
       <div class="col-md-auto d-none d-md-flex align-items-center">
         <i class="fa-solid fa-4x fa-circle-user"></i>
@@ -24,7 +24,7 @@
         aria-hidden="true"
       ></i>
     </button>
-    <b [ngClass]="{ 'text-success': isLiked }">{{ like }}</b>
+    <b [ngClass]="{ 'text-success': isLiked }">{{ cours.nblike }}</b>
   </div>
 
   <div
@@ -38,7 +38,7 @@
       ></i>
     </button>
     <b [ngClass]="{ 'text-muted': !isDisliked, 'text-danger': isDisliked }">
-      {{ dislike }}
+      {{ cours.nbdislike }}
     </b>
   </div>
 

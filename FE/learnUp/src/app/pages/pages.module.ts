@@ -6,10 +6,7 @@ import { ChatComponent } from './component/chat/chat.component';
 import { FormsModule } from '@angular/forms';
 import { HOMEComponent } from './home/home.component';
 import { RouterModule, Routes } from '@angular/router';
-import { CoursesComponent } from './courses/courses.component';
 import { CourComponent } from './component/cour/cour.component';
-import { LogInComponent } from './log-in/log-in.component';
-import { LogUpComponent } from './log-up/log-up.component';
 import { SearchComponent } from './search/search.component';
 import { ReportComponent } from './report/report.component';
 import { MsgComponent } from './component/msg/msg.component';
@@ -17,19 +14,23 @@ import { DocComponent } from './component/doc/doc.component';
 import { ReactiveFormsModule } from "@angular/forms";
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { CommunitychatComponent } from './communitychat/communitychat.component';
+import { LoginComponent } from './login/login.component';
+
+import { HttpClientModule } from '@angular/common/http';
+import { CourseComponent } from './course/course.component';
 @NgModule({
   declarations: [
     SearchComponent,
     HeaderComponent,
     CourComponent,
     ExamnComponent,
-    ChatComponent,HOMEComponent,CoursesComponent, LogInComponent,LogUpComponent, ReportComponent, MsgComponent, DocComponent, CommunitychatComponent
+    ChatComponent,HOMEComponent, LoginComponent,ReportComponent, MsgComponent, DocComponent, CommunitychatComponent, LoginComponent, CourseComponent
   ],
   imports: [
-    CommonModule, RouterModule,FormsModule, ReactiveFormsModule,SweetAlert2Module.forRoot()
+    CommonModule, RouterModule,FormsModule, ReactiveFormsModule,SweetAlert2Module.forRoot(),HttpClientModule
   ],
   exports : [
-    SearchComponent,HeaderComponent,CoursesComponent,ChatComponent,ExamnComponent,HOMEComponent,LogInComponent,LogUpComponent,ReportComponent
+    SearchComponent,HeaderComponent,CourseComponent,ChatComponent,ExamnComponent,HOMEComponent,ReportComponent,LoginComponent
   ]
 })
 export class PagesModule { }

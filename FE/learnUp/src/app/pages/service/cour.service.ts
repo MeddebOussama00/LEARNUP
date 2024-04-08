@@ -1,9 +1,44 @@
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { catchError, Observable, throwError } from 'rxjs';
+import { Course } from '../course/course.component';
+
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class CourService {
+  private courID = 0;
+  courses = [];
 
-  constructor() { }
+  url = 'http://localhost/learnUp/cour.php';
+
+  constructor(private http: HttpClient) {}
+
+  setId(c: number) {
+    this.courID = c;
+  }
+  /*Putlike(c:Course){
+    return this.http.put(this.url ,{c})
+  }*/
+  getCour(): Observable<[]> {
+    const params = new HttpParams().set('c', this.courID.toString());
+    return this.http.get<[]>(this.url, { params }).pipe(
+      catchError((error: any) => {
+        console.error(error);
+        return [];
+      })
+    );
+  }
+
+  b64toBlob(b64Data: string, contentType: string): Blob {
+    const byteNumbers = atob(b64Data);
+    const byteArray = new Uint8Array(byteNumbers.length);
+    for (let i = 0; i < byteNumbers.length; i++) {
+      byteArray[i] = byteNumbers.charCodeAt(i);
+    }
+    const blob = new Blob([byteArray], { type: contentType });
+    return blob;
+  }
 }

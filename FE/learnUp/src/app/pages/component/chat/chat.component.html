@@ -4,7 +4,7 @@
       <i class="fa-solid fa-3x mt-2 fa-circle-user"></i>
     </div>
     <div class="message-content">
-      <div class="h3">{{ message.date | date: 'h:mm:ss' }}</div>
+      <div class="h3">{{ message.date | date: 'h:mm' }}</div>
       <div class="h5 sender">{{ message.sender }} : {{ message.content }}</div>
       <div class="comments">
         <div class="comment" *ngFor="let comment of message.comments">

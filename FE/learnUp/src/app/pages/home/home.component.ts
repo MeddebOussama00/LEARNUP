@@ -7,27 +7,20 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './home.component.css',
   encapsulation: ViewEncapsulation.None,
 })
-export class HOMEComponent implements OnInit  {
-  public href: string = "";
-  public isHidden = false;
-  constructor( private dataservice:DataService,private route:ActivatedRoute){}
-  ngOnInit() {
-    this.route.data.subscribe(data => {
-      this.isHidden = data['hideFileSelect']; // Set visibility based on flag
-    });
-  } 
+export class HOMEComponent   {
+
   
-  upload(event:any) {
+  /*upload(event:any) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-    const fileReader = new FileReader();
-    fileReader.onload = (e: any) => {
+     const fileReader = new FileReader();
+     fileReader.onload = (e: any) => {
       const fileContent = new Uint8Array(e.target.result);
       this.dataservice.set({ f: fileContent, name: file.name, dateFile: file.lastModifiedDate });
 
     }
     fileReader.readAsArrayBuffer(file);
   };
-  }
+  }*/
     }  
 

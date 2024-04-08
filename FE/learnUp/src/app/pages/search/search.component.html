@@ -20,27 +20,12 @@
               data-bs-toggle="dropdown"
               data-bs-touch="false"
               required
+              (change)="getSpe()"
             >
-              <option value="">Select a level</option>
-              <option value="A">Level A</option>
-              <option value="B">Level B</option>
-            </select>
-          </div>
-        </div>
-        <div class="col-md d-none d-md-block">
-          <div class="dropdown">
-            <select
-              id="class"
-              formControlName="class"
-              class="form-control"
-              aria-label="Default select example"
-              data-bs-toggle="dropdown"
-              data-bs-touch="false"
-              required
-            >
-              <option value="">Select a class</option>
-              <option value="1">Class 1</option>
-              <option value="2">Class 2</option>
+              <option disabled [value]="null">Select a level</option>
+              <option *ngFor="let d of levels" [value]="d.idlevel">
+                {{ d.namelevel }}
+              </option>
             </select>
           </div>
         </div>
@@ -54,10 +39,31 @@
               data-bs-toggle="dropdown"
               data-bs-touch="false"
               required
+              (change)="getclass()"
             >
-              <option value="">Select a level</option>
-              <option value="A">Level A</option>
-              <option value="B">Level B</option>
+              <option value="null">Select a speciality</option>
+              <option *ngFor="let d of spec" [value]="d.idspe">
+                {{ d.namespe }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md d-none d-md-block">
+          <div class="dropdown">
+            <select
+              id="class"
+              formControlName="class"
+              class="form-control"
+              aria-label="Default select example"
+              data-bs-toggle="dropdown"
+              data-bs-touch="false"
+              required
+              (change)="getCour()"
+            >
+              <option disabled value="null">Select a class</option>
+              <option *ngFor="let d of cl" [value]="d.idclass">
+                {{ d.nameclass }}
+              </option>
             </select>
           </div>
         </div>
@@ -70,11 +76,17 @@
               aria-label="Default select example"
               data-bs-toggle="dropdown"
               data-bs-touch="false"
+              (change)="getCouId()"
               required
             >
-              <option value="">Select a Cours</option>
-              <option value="A">Cours A</option>
-              <option value="B">Cours B</option>
+              <option value="null">Select a Cours</option>
+              <option
+                class="text-dark"
+                *ngFor="let d of cour"
+                [value]="d.idSubject"
+              >
+                {{ d.nameSub }}
+              </option>
             </select>
           </div>
         </div>
