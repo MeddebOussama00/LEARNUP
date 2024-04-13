@@ -13,9 +13,8 @@ import { MsgComponent } from './component/msg/msg.component';
 import { DocComponent } from './component/doc/doc.component';
 import { ReactiveFormsModule } from "@angular/forms";
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
-import { CommunitychatComponent } from './communitychat/communitychat.component';
 import { LoginComponent } from './login/login.component';
-
+import { CommunityChatComponent } from './community-chat/community-chat.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CourseComponent } from './course/course.component';
 @NgModule({
@@ -24,13 +23,13 @@ import { CourseComponent } from './course/course.component';
     HeaderComponent,
     CourComponent,
     ExamnComponent,
-    ChatComponent,HOMEComponent, LoginComponent,ReportComponent, MsgComponent, DocComponent, CommunitychatComponent, LoginComponent, CourseComponent
+    ChatComponent,HOMEComponent, LoginComponent,ReportComponent, MsgComponent, DocComponent, CommunityChatComponent, LoginComponent, CourseComponent
   ],
   imports: [
     CommonModule, RouterModule,FormsModule, ReactiveFormsModule,SweetAlert2Module.forRoot(),HttpClientModule
   ],
   exports : [
-    SearchComponent,HeaderComponent,CourseComponent,ChatComponent,ExamnComponent,HOMEComponent,ReportComponent,LoginComponent
+    SearchComponent,HeaderComponent,CourseComponent,ExamnComponent,HOMEComponent,ReportComponent,LoginComponent,CommunityChatComponent
   ]
 })
 export class PagesModule { }

@@ -17,7 +17,7 @@
       >
     </li>
     <li class="col-3 nav-item" routerLinkActive="active">
-      <a class="nav-link text-center fs-3 text-light" routerLink="/home/chat"
+      <a class="nav-link text-center fs-3 text-light" routerLink="/home/Chat"
         >Community Chat</a
       >
     </li>
@@ -26,21 +26,21 @@
     <div class="chat-header">
       <h1>Community Chat</h1>
       <div class="chat-messages">
-        <div
-          class="row ms-2 message-container d-flex flex-row"
-          *ngFor="let message of messages"
-        >
-          <app-chat [message]="message" [bc]="message.sender"></app-chat>
+        <div class="row ms-2 message-container d-flex flex-row">
+          <app-chat
+            *ngFor="let message of messages$ | async"
+            [message]="message"
+          ></app-chat>
         </div>
       </div>
       <div class="chat-input">
         <input
           type="text"
           [(ngModel)]="newMessage"
-          placeholder="{{ bc || 'Type a message here...' }}"
+          placeholder="Type a message here..."
           class="border border-black"
         />
-        <button (click)="chatsend()">Send</button>
+        <button (click)="sendMessage()">Send</button>
       </div>
     </div>
   </div>

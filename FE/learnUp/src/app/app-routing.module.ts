@@ -6,20 +6,21 @@ import { ReportComponent } from './pages/report/report.component';
 import { LoginComponent } from './pages/login/login.component';
 
 const routes: Routes = [
+  { 
+    path: 'login',
+    pathMatch: 'full',
+    component: LoginComponent
+  },
   {
   
-    path: 'search',
-    pathMatch: 'full',
+    path: 'Search',
     component: SearchComponent
   },
   {
     path: 'home',
     loadChildren: () => import('./pages/home/home.module').then(m => m.HOMEModule)
   },
-  { 
-    path: 'login',
-    component: LoginComponent
-  },
+
   {
     path: 'report',
     component: ReportComponent

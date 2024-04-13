@@ -1,12 +1,12 @@
-<div class="row pt-3 d-flex align-items-center">
+<div class="row pt-3 d-flex align-items-center" *ngIf="c">
   <div class="col-md-7 post">
     <div class="row d-flex justify-content-between">
       <div class="col-md-3">
         <i class="fa-solid fa-4x fa-file-pdf"></i>
       </div>
       <div class="col">
-        <p class="fs-4">title</p>
-        <p class="fs-4">dd/mm/yyyy</p>
+        <p class="fs-4">{{ c.title }}</p>
+        <p class="fs-4">{{ c.date }}</p>
       </div>
       <div class="col-md-auto d-none d-md-flex align-items-center">
         <i class="fa-solid fa-4x fa-circle-user"></i>
@@ -15,7 +15,13 @@
   </div>
   <div class="col-md-2 text-center d-flex flex-column align-items-center">
     <div><i class="fas fa-3x pb-4 fa-check-circle"></i></div>
-    <div><i class="fa-solid fa-3x fa-trash-can"></i></div>
+    <button type="button" class="btn">
+      <i
+        *ngIf="c"
+        (click)="courDeleted(+c.id_d)"
+        class="fa-solid fa-3x fa-trash-can"
+      ></i>
+    </button>
   </div>
 
   <div class="col-md d-flex align-items-cente justify-content-center">
@@ -24,7 +30,9 @@
     </div>
     <div>
       <div><i class="fas fa-3x mb-3 fa-check-circle"></i></div>
-      <div><i class="fa-solid fa-3x fa-trash-can"></i></div>
+      <div>
+        <i class="fa-solid fa-3x fa-trash-can"></i>
+      </div>
     </div>
   </div>
 </div>

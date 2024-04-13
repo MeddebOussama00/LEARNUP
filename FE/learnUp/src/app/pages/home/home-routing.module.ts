@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HOMEComponent } from './home.component';
 import { ExamnComponent } from '../examn/examn.component';
-import { CommunitychatComponent } from '../communitychat/communitychat.component';
+import { CommunityChatComponent } from '../community-chat/community-chat.component';
 import { CourseComponent } from '../course/course.component';
 
 const homeRoutes: Routes = [
@@ -10,9 +10,10 @@ const homeRoutes: Routes = [
     path: '',
     component: HOMEComponent,
     children: [
+      {path: '',pathMatch: 'full', component: CourseComponent},
       { path: 'Cour', component: CourseComponent },
       { path: 'Examn', component: ExamnComponent },
-      { path: 'Chat', component: CommunitychatComponent } 
+      { path: 'Chat', component: CommunityChatComponent } 
     ]
   }
 ];

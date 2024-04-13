@@ -1,7 +1,6 @@
-<app-header> </app-header>
+<app-header></app-header>
 <div class="bcolor">
-  <div class="container" *ngFor="let number of [0, 1, 2, 3, 4]">
-    <app-doc></app-doc>
-    <div><app-msg></app-msg></div>
+  <div class="container" *ngFor="let course of r">
+    <app-doc [c]="course" (deleteCourse)="courDeleted(course.id_d)"></app-doc>
   </div>
 </div>

@@ -1,39 +1,40 @@
-import { Component, Input } from '@angular/core';
-import { ChatService,Message } from '../../service/chat.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { ChatService} from '../../service/chat.service'; 
+import { Message } from '../../Message.model';
+import { Commentaire } from '../../Comment.model';
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.css'],
+  styleUrls: ['./chat.component.css']
 })
-export class ChatComponent {
-  @Input() message!: Message;
-  @Input() bc!: string;
-  public chatServiceAccessor = this.chatService;
-  public like=0
-  public dislike=0
-  public isLiked = false;
-  public isDisliked = false;
+export class ChatComponent implements OnInit {
+  @Input()
+  message!: Message;
+  showCommentInput: boolean = false;
+  newComment: string = '';
+
   constructor(private chatService: ChatService) {}
 
-  chatComment(message: Message) {
-    this.bc = message.sender;
-  }
-  onButtonClick(message: Message) {
-    if (this.bc !== 'Type your message here...') {
-      this.chatServiceAccessor.addComment(message, this.chatServiceAccessor.newMessage);
-      this.chatServiceAccessor.newMessage = '';
-      this.bc = 'Type your message here...';
+  ngOnInit(): void {
+    if (!this.message?.comments) {
+      this.message.comments = [];
     }
   }
-  likeCount(): void {
-    this.isLiked=true
-    if(this.like>-1){
-      this.like ++;
+
+  toggleCommentInput(): void {
+    this.showCommentInput = !this.showCommentInput;
+  }
+
+  addComment(): void {
+    if (this.newComment.trim() !== '') {
+      this.chatService.addComment(this.message?.id, this.newComment)
+        .subscribe((comment: Commentaire) => {
+          this.message.comments = this.message.comments ?? [];
+          this.message?.comments.push(comment);
+          this.newComment = '';
+          this.showCommentInput = false;
+        });
     }
   }
-  dislikeCount(): void {
-    this.isDisliked=true
-    this.dislike++;
-  }
-}
+}  

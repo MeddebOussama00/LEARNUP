@@ -1,23 +1,34 @@
 <div class="bcolor container">
   <div class="row">
     <div class="col-10">
-    <ul class="nav row ms-5 rounded-pill">
-      <li class="col nav-item" routerLinkActive="active">
-        <a class="nav-link text-center fs-3" aria-current="page" routerLink="/home/Cour"
-          >Cources</a
+      <ul class="nav row ms-5 rounded-pill">
+        <li class="col nav-item" routerLinkActive="active">
+          <a
+            class="nav-link text-center fs-3"
+            aria-current="page"
+            routerLink="/home/Cour"
+            >Cources</a
+          >
+        </li>
+        <li
+          class="col nav-item border-start border-end border-black border-3"
+          routerLinkActive="active"
         >
-      </li>
-      <li class="col nav-item border-start border-end border-black border-3" routerLinkActive="active">
-        <a class="nav-link text-center fs-3" routerLink="/home/Examn">Exercises</a>
-      </li>
-      <li class="col nav-item" routerLinkActive="active">
-        <a class="nav-link text-center fs-3" routerLink="/home/Chat">Community Chat</a>
-      </li>
-    </ul></div>
+          <a class="nav-link text-center fs-3" routerLink="/home/Examn"
+            >Exercises</a
+          >
+        </li>
+        <li class="col nav-item" routerLinkActive="active">
+          <a class="nav-link text-center fs-3" routerLink="/home/Chat"
+            >Community Chat</a
+          >
+        </li>
+      </ul>
+    </div>
     <div class="form-group float-end col-2">
       <label for="file-input" class="btn btn-outline-secondary btn-block">
         <i class="fa-regular fa-4x fa-square-plus"></i>
-        <span class="d-block ">Select file</span>
+        <span class="d-block">Select file</span>
         <input
           type="file"
           (change)="FileUpload($event)"

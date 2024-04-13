@@ -10,6 +10,7 @@ export class SearchService {
 
   query = '';
   url='http://localhost/learnUp/search.php';
+  url2='http://localhost/learnUp/chat.php';
   constructor( private http:HttpClient) {  }
   getAllLevel(): Observable<{ namelevel: string, idlevel: number }[]> {
     this.query = 'level';
@@ -57,6 +58,12 @@ export class SearchService {
         return of([]);
       })
     );
+  }
+  getMessage(){
+   return this.http.get(this.url2).pipe(catchError(error => {
+    console.error(error);
+    return of([]);
+    }))
   }
   getAllCour(s:string){
     this.query = 'cour';

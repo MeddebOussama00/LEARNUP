@@ -1,1 +1,72 @@
-<router-outlet></router-outlet>
+<div class="login">
+  <div class="d-flex align-items-center justify-content-center pt-3 top">
+    <img class="img round" src="assets/img/dog.jpg" />
+    <h3 class="ps-3">learn up</h3>
+  </div>
+  <form
+    [formGroup]="loginForm"
+    class="needs-validation"
+    (ngSubmit)="submitForm($event)"
+  >
+    <div class="input mx-auto">
+      <div class="form-group pt-3 mx-auto">
+        <label for="email">Email:</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          formControlName="email"
+          required
+          placeholder="Enter email"
+        />
+
+        <div
+          class="invalid-feedback"
+          *ngIf="loginForm.controls['email'].errors"
+        >
+          <ng-container *ngIf="loginForm.controls['email'].errors['required']">
+            Email is required.
+          </ng-container>
+          <ng-container *ngIf="loginForm.controls['email'].errors['email']">
+            Please enter a valid email address.
+          </ng-container>
+        </div>
+      </div>
+      <div class="form-group pt-4 mx-auto">
+        <label for="password">Password:</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          formControlName="password"
+          required
+          minlength="8"
+          placeholder="Enter password"
+        />
+
+        <div
+          class="invalid-feedback"
+          *ngIf="loginForm.controls['password'].errors"
+        >
+          <ng-container
+            *ngIf="loginForm.controls['password'].errors['required']"
+          >
+            Password is required.
+          </ng-container>
+          <ng-container
+            *ngIf="loginForm.controls['password'].errors['minlength']"
+          >
+            Password must be at least 8 characters long.
+          </ng-container>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-3">
+      <button type="submit" class="btn me-4">Sign up</button>
+      <button type="submit" (click)="submitForm($event)" class="btn">
+        login In
+      </button>
+    </div>
+  </form>
+</div>
