@@ -53,6 +53,7 @@ export class SearchComponent   {
     getCour(){
       const c = this.f.get("class")?.value;
       if (c) {
+        this.search.setClass(c);
         this.search.getAllCour(c).subscribe((data:{ idSubject: number, nameSub: string }[]) => {
           this.cour = data;
         });        

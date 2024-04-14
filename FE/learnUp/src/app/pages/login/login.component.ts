@@ -47,7 +47,6 @@ export class LoginComponent {
   submitForm(event: Event): void {
     event.preventDefault();
     this.validateInput();
-
     if (this.loginForm.valid && !this.submitting) {
       // Form is valid, perform submission logic here
       this.submitting = true;

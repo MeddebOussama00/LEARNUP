@@ -7,7 +7,7 @@
             class="nav-link text-center fs-3"
             aria-current="page"
             routerLink="/home/Cour"
-            >Cources</a
+            >Courses</a
           >
         </li>
         <li
@@ -26,17 +26,98 @@
       </ul>
     </div>
     <div class="form-group float-end col-2">
-      <label for="file-input" class="btn btn-outline-secondary btn-block">
-        <i class="fa-regular fa-4x fa-square-plus"></i>
-        <span class="d-block">Select file</span>
-        <input
-          type="file"
-          (change)="FileUpload($event)"
-          id="file-input"
-          accept=".pdf"
-          class="d-none"
-        />
-      </label>
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#plusModal"
+      >
+        <i class="far fa-square-plus"></i>
+      </button>
+      <div
+        class="modal fade"
+        id="plusModal"
+        tabindex="-1"
+        aria-labelledby="plusModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="plusModalLabel">Modal Title</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form [formGroup]="form">
+                <div class="form-check form-check-inline">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="Cour"
+                    value="cour"
+                    formControlName="cour"
+                    required
+                  />
+                  <label class="form-check-label" for="Cour">Cour</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="Examn"
+                    value="examn"
+                    formControlName="examn"
+                    required
+                  />
+                  <label class="form-check-label" for="Examn">Examn</label>
+                </div>
+                <div class="mt-3">
+                  <div class="form-check" *ngFor="let d of cour">
+                    <input
+                      type="checkbox"
+                      class="form-check-input"
+                      [value]="d.idSubject"
+                      formControlName="subjects"
+                      required
+                    />
+                    <label class="form-check-label" [for]="d.nameSub">{{
+                      d.nameSub
+                    }}</label>
+                  </div>
+                </div>
+                <div class="mt-3">
+                  <input
+                    type="file"
+                    class="form-control"
+                    id="fileInput"
+                    accept=".pdf"
+                    formControlName="file"
+                    [disabled]="
+                      !form.get('cour')?.value || !form.get('examn')?.value
+                    "
+                  />
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="
+                      form.get('file')?.invalid && form.get('file')?.touched
+                    "
+                  >
+                    Please select a PDF file.
+                  </div>
+                  <div *ngIf="form.get('file')?.errors?.fileType">
+                    Please select a PDF file.
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div *ngFor="let c of cs">

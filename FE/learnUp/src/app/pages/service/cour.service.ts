@@ -28,7 +28,6 @@ export class CourService {
         })
       );
   }
-  
   getCour(): Observable<[]> {
     const params = new HttpParams().set('c', this.courID.toString());
     return this.http.get<[]>(this.url+ '?query=cour', { params }).pipe(

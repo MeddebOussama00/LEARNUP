@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { log } from 'console';
 import { Subject } from 'rxjs';
 import { CourService } from '../service/cour.service';
 import { DataService } from '../service/data.service';
 import { ReportSharedService } from '../service/report-shared.service';
+import { SearchService } from '../service/search.service';
+
 export interface Course {
   id: number;
   title: string;
@@ -23,21 +26,45 @@ export interface Course {
   styleUrls: ['./course.component.css']
 })
 export class CourseComponent implements OnInit {
+  form:FormGroup
   cs: Course[] = [];
+  n!:string
+  cour:{ idSubject: number, nameSub: string }[]=[]
   courDeletedSubject = new Subject<number>();
 
-  constructor(
-    private d: DataService,
+  constructor(private fb: FormBuilder,    private d: DataService,
     private c: CourService,
-    private reportService: ReportSharedService 
-  ) { }
+    private s: SearchService,
+    private reportService: ReportSharedService) {
+      this.form = this.fb.group({
+        cour: [null, Validators.required],
+        examn: [null, Validators.required],
+        subjects: [[], Validators.required],
+        file: [null, Validators.required]
+      });
+  }
   ngOnInit() {
     this.fetchCourses();
+    this.n=this.s.c;
+    this.getCour()
       }
-
+      validateFile(control: FormControl): { [key: string]: any } | null {
+        if (control.value && control.value.type !== 'application/pdf') {
+          return { 'fileType': true };
+        }
+        return null;
+      }
+ getCour(){
+    if (this.n) {
+      this.s.getAllCour(this.n).subscribe((data:{ idSubject: number, nameSub: string }[]) => {
+        this.cour = data;
+        console.log(this.cour)
+      });   
+      }
+    }
       fetchCourses(): void {
         this.c.getCour().subscribe((data: any[]) => {
-          this.cs = data.map(item => ({
+          this.cs= data.map(item => ({
             id: item.id_d,
             title: item.title,
             data: new Uint8Array(item.dataD),
@@ -57,19 +84,7 @@ export class CourseComponent implements OnInit {
           });
         });
       }
-
   FileUpload(event: any): void {
     this.d.upload(event);
   }
-
 }
-
-
-  /*updateCourseList(updatedCourse: Course) {
-    const courseIndex = this.cs.findIndex(c => c.id === updatedCourse.id);
-    if (courseIndex !== -1) {
-      this.cs[courseIndex] = updatedCourse; 
-    }
-    console.log(this.cs);
-    
-  }*/

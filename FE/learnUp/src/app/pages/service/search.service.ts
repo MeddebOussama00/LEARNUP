@@ -7,11 +7,15 @@ import { catchError, map, Observable, of } from 'rxjs';
   providedIn: 'root'
 })
 export class SearchService {
-
+  c!:string
   query = '';
   url='http://localhost/learnUp/search.php';
   url2='http://localhost/learnUp/chat.php';
   constructor( private http:HttpClient) {  }
+  setClass(n:string){
+    this.c=n;
+  }
+  
   getAllLevel(): Observable<{ namelevel: string, idlevel: number }[]> {
     this.query = 'level';
     return this.http.get<any[]>(`${this.url}?query=${this.query}`).pipe(
