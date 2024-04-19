@@ -29,7 +29,6 @@ export class CourComponent implements OnInit {
     this.isLiked = true;
     if (this.cours && this.cours.nblike !== undefined) {
       this.cours.nblike++;
-      this.updateCounts();
     }
   }
 
@@ -40,11 +39,7 @@ export class CourComponent implements OnInit {
     }
   }
 
-  updateCounts():void {
-    if(this.cours){
-      /*this.c.Putlike(this.cours);*/
-    }
-  }
+
 
   download(): void {
     if (this.cours && this.cours.data) {
@@ -59,7 +54,5 @@ export class CourComponent implements OnInit {
     }
   }
 }
-function ob(ob: any) {
-  throw new Error('Function not implemented.');
-}
+
 

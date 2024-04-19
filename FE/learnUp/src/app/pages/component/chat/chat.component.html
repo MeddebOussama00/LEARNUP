@@ -7,7 +7,6 @@
       <div class="h3">
         {{ message.date | date : "mediumDate" }}
       </div>
-
       <div class="h5 sender">{{ message.sender }}</div>
       <div>{{ message.content }}</div>
       <div *ngFor="let d of message?.comments">
@@ -19,15 +18,21 @@
     <button class="btn">
       <i class="fa-solid fa-2x fa-thumbs-up" aria-hidden="true"></i>
     </button>
-    <b>{{ message.nblike }}</b>
+    <b [ngClass]="{ 'text-success': message.nblike != 0 }">{{
+      message.nblike
+    }}</b>
   </div>
   <div class="text-center col-md">
-    <button class="btn" type="button">
-      <i class="fa-solid fa-2x fa-thumbs-down" aria-hidden="true"></i>
+    <button class="btn">
+      <i
+        class="fa-solid fa-2x fa-thumb-down"
+        [ngClass]="{ 'text-success': message.nbdislike != 0 }"
+        aria-hidden="true"
+      ></i>
     </button>
-    <b>
-      {{ message.nbdislike }}
-    </b>
+    <b [ngClass]="{ 'text-danger': message.nbdislike != 0 }">{{
+      message.nbdislike
+    }}</b>
   </div>
   <div class="text-center col-md">
     <button type="button" (click)="toggleCommentInput()">

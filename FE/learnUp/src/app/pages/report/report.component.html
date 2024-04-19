@@ -3,4 +3,7 @@
   <div class="container" *ngFor="let course of r">
     <app-doc [c]="course" (deleteCourse)="courDeleted(course.id_d)"></app-doc>
   </div>
+  <div class="container" *ngFor="let mes of sh">
+    <app-msg [c]="mes" (MessageDeleted)="MessageDeleted(mes.id)"></app-msg>
+  </div>
 </div>

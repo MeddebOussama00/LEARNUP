@@ -15,8 +15,25 @@ export class CourService {
   setId(c: number) {
     this.courID = c;
   }
-  Putlike(c:Course){
-    return this.http.put(this.url ,{c})
+  Putlike(c:number){
+    const requestData = { id: c, data:'1'}; 
+    return this.http.put(`${this.url}?query=like`, requestData)
+    .pipe(
+      catchError((error: any) => {
+        console.error(error);
+        return [];
+      })
+    );
+  }
+  Putdislike(c:number){
+    const requestData = { id: c, data:'1'}; 
+    return this.http.put(`${this.url}?query=dislike`, requestData)
+    .pipe(
+      catchError((error: any) => {
+        console.error(error);
+        return [];
+      })
+    );
   }
   putCour(id: number): Observable<any> {
     const requestData = { id: id, data:'1'}; 
@@ -37,7 +54,15 @@ export class CourService {
       })
     );
   }
-
+  getexman(): Observable<[]> {
+    const params = new HttpParams().set('c', this.courID.toString());
+    return this.http.get<[]>(this.url+ '?query=exam,', { params }).pipe(
+      catchError((error: any) => {
+        console.error(error);
+        return [];
+      })
+    );
+  }
   b64toBlob(b64Data: string, contentType: string): Blob {
     const byteNumbers = atob(b64Data);
     const byteArray = new Uint8Array(byteNumbers.length);

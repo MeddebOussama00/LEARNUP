@@ -10,7 +10,6 @@ const homeRoutes: Routes = [
     path: '',
     component: HOMEComponent,
     children: [
-      {path: '',pathMatch: 'full', component: CourseComponent},
       { path: 'Cour', component: CourseComponent },
       { path: 'Examn', component: ExamnComponent },
       { path: 'Chat', component: CommunityChatComponent } 

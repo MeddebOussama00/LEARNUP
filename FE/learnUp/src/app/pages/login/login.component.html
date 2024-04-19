@@ -16,20 +16,16 @@
           class="form-control"
           id="email"
           formControlName="email"
-          required
           placeholder="Enter email"
         />
 
-        <div
-          class="invalid-feedback"
-          *ngIf="loginForm.controls['email'].errors"
-        >
-          <ng-container *ngIf="loginForm.controls['email'].errors['required']">
-            Email is required.
-          </ng-container>
-          <ng-container *ngIf="loginForm.controls['email'].errors['email']">
-            Please enter a valid email address.
-          </ng-container>
+        <div class="invalid-feedback" *ngIf="emailControl.errors">
+          <ng-container *ngIf="emailControl.errors['required']"
+            >Email is required.</ng-container
+          >
+          <ng-container *ngIf="emailControl.errors['email']"
+            >Please enter a valid email address.</ng-container
+          >
         </div>
       </div>
       <div class="form-group pt-4 mx-auto">
@@ -39,8 +35,6 @@
           class="form-control"
           id="password"
           formControlName="password"
-          required
-          minlength="8"
           placeholder="Enter password"
         />
         <div
@@ -49,23 +43,14 @@
         >
           <ng-container
             *ngIf="loginForm.controls['password'].errors['required']"
+            >Password is required.</ng-container
           >
-            Password is required.
-          </ng-container>
-          <ng-container
-            *ngIf="loginForm.controls['password'].errors['minlength']"
-          >
-            Password must be at least 8 characters long.
-          </ng-container>
         </div>
       </div>
     </div>
-
     <div class="text-center mt-3">
-      <button type="submit" class="btn me-4">Sign up</button>
-      <button type="submit" (click)="submitForm($event)" class="btn">
-        login In
-      </button>
+      <button type="submit" class="btn btn-info">Login</button>
+      <div class="alert" *ngIf="error">Email or Password invalid</div>
     </div>
   </form>
 </div>

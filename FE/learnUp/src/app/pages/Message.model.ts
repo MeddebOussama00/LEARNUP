@@ -7,6 +7,7 @@ export interface Message {
   date: Date;
   nblike: number;
   nbdislike: number;
+  report:number,
   id_user: number;
   comments: Commentaire[];
 }

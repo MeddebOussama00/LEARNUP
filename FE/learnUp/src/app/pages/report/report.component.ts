@@ -19,13 +19,16 @@ export interface doc {
 })
 export class ReportComponent{
   r: any[] = [];
-
+  sh:any[]=[]
   constructor(
     private dataService: DataService,
     private sharedService: ReportSharedService
   ) {
     this.sharedService.getReport().subscribe((reportedCourses: any[]) => {
       this.r = reportedCourses;
+    });
+    this.sharedService.getMessage().subscribe((reportedMessage: any[]) => {
+      this.sh = reportedMessage;
     });
   }
   
@@ -34,5 +37,11 @@ export class ReportComponent{
       this.r = this.r.filter((course) => course.id !== id);
     });
   }
+  MessageDeleted(id: number): void {
+    this.dataService.deletedMessage(id).subscribe(() => {
+      this.sh = this.sh.filter((message) => message.id !== id);
+    });
+  }
+  
 
 }
