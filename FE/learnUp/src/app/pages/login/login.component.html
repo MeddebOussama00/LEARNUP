@@ -3,6 +3,7 @@
     <img class="img round" src="assets/img/dog.jpg" />
     <h3 class="ps-3">learn up</h3>
   </div>
+
   <form
     [formGroup]="loginForm"
     class="needs-validation"
@@ -17,6 +18,7 @@
           id="email"
           formControlName="email"
           placeholder="Enter email"
+          required
         />
 
         <div class="invalid-feedback" *ngIf="emailControl.errors">
@@ -36,6 +38,7 @@
           id="password"
           formControlName="password"
           placeholder="Enter password"
+          required
         />
         <div
           class="invalid-feedback"

@@ -44,7 +44,7 @@
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="plusModalLabel">Modal Title</h5>
+              <h5 class="modal-title" id="plusModalLabel"></h5>
               <button
                 type="button"
                 class="btn-close"
@@ -52,15 +52,16 @@
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body">
-              <form [formGroup]="form">
+            <form [formGroup]="form">
+              <div class="modal-body">
                 <div class="form-check form-check-inline">
                   <input
                     type="radio"
                     class="form-check-input"
                     id="Cour"
                     value="cour"
-                    formControlName="cour"
+                    formControlName="mat"
+                    [checked]="form.get('mat')?.value === 'cour'"
                     required
                   />
                   <label class="form-check-label" for="Cour">Cour</label>
@@ -71,7 +72,8 @@
                     class="form-check-input"
                     id="Examn"
                     value="examn"
-                    formControlName="examn"
+                    formControlName="mat"
+                    [checked]="form.get('mat')?.value === 'examn'"
                     required
                   />
                   <label class="form-check-label" for="Examn">Examn</label>
@@ -93,14 +95,12 @@
                     type="file"
                     class="form-control"
                     id="fileInput"
+                    (change)="getfile($event)"
                     accept=".pdf"
-                    (change)="GetFile($event)"
                     formControlName="file"
                     [disabled]="
-                      !(
-                        this.form.get('cour')?.value ||
-                        this.form.get('examn')?.value
-                      ) && this.form.get('subjects')?.value?.length > 0
+                      !form.get('mat')?.value ||
+                      form.get('subject')?.value === null
                     "
                   />
                   <div
@@ -112,16 +112,19 @@
                     Please select a PDF file.
                   </div>
                 </div>
-              </form>
-            </div>
-            <button
-              type="button"
-              class="btn btn-success"
-              data-bs-dismiss="modal"
-              (click)="FileUpload($event)"
-            >
-              Add
-            </button>
+              </div>
+              <div class="d-block">
+                <button
+                  type="button"
+                  class="btn btn-block btn-success"
+                  data-bs-dismiss="modal"
+                  [disabled]="!isFormValid()"
+                  (click)="onAddCourse()"
+                >
+                  Add
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>

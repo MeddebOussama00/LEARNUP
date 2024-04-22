@@ -1,17 +1,32 @@
 <?php
 require('connect.php');
 header('Content-Type: application/json');
-if (isset($_GET["query"])) {
+header("Access-Control-Allow-Origin: *");
+// Allow the GET method from any origin
+header("Access-Control-Allow-Methods: GET");
+
+
+if(isset($_GET["query"])) {
     $q = $_GET["query"];
     switch ($q) {
-        case 'getaccount':
-            $id = $_GET['c'];
+        case 'getaccount': 
+            $id=$_GET["c"];
             $stmt = $conn->prepare("SELECT idMessage, msg, dateMessage, nblike, nbdislike, report, id FROM `message` where id=?");
             $stmt->bind_param("i", $id);
             $stmt->execute();
             $result = $stmt->get_result();
             $messages = [];
             while ($row = $result->fetch_assoc()) {
+                $stmt3 = $conn->prepare("SELECT username FROM `user` where id_U=?");
+                $stmt3->bind_param("i", $row["id"]);
+                $stmt3->execute();
+                $result3 = $stmt3->get_result();
+                if ($result3->num_rows > 0) {
+                    $username_row = $result3->fetch_assoc();
+                    $username = $username_row["username"];
+                } else {
+                    $username = "Unknown";
+                }
                 $message = [
                     "idMessage" => $row["idMessage"],
                     "msg" => $row["msg"],
@@ -20,9 +35,8 @@ if (isset($_GET["query"])) {
                     "nbdislike" => $row["nbdislike"],
                     "report" => $row["report"],
                     "id" => $row["id"],
-                    "username" => "admin"
+                    "username" => $username
                 ];
-
                 $responses = [];
                 $stmt2 = $conn->prepare("SELECT id_r, msg, dateMessage, id, idM FROM `reponse` WHERE idM=?");
                 $stmt2->bind_param("i", $row["idMessage"]);
@@ -42,16 +56,15 @@ if (isset($_GET["query"])) {
                 $messages[] = $message;
             }
             echo json_encode($messages);
-            break;
+             break;
 
-            break;
         case 'putReport':
             $data = json_decode(file_get_contents("php://input"), true);
             if (isset($data['id']) && isset($data['data'])) {
                 $id = $data['id'];
                 $d = $data['data'];
-                $stmt = $conn->prepare("UPDATE message SET report = ? WHERE id = ?");
-                $stmt->bind_param("ii", $d, $id);
+                $stmt = $conn->prepare("UPDATE message SET report = ? WHERE idMessage = ?");
+                $stmt->bind_param("ii",$d,$id);
                 if ($stmt->execute()) {
                     echo json_encode(['message' => 'Report updated successfully']);
                 } else {

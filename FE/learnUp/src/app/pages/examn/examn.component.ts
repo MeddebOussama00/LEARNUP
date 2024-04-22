@@ -87,7 +87,7 @@ export class ExamnComponent implements OnInit {
       const selectedSubjectId = this.getSelectedSubject();
       if (selectedSubjectId !== undefined) {
         const course: Course = {
-          id: this.d.generateSimpleId(),
+          id: 0,
           title: file.name,
           data: new Uint8Array(fileContent as ArrayBuffer), // convert fileContent to ArrayBuffer
           type: 'cour',

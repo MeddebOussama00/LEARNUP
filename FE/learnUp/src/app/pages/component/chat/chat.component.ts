@@ -19,6 +19,7 @@ export class ChatComponent implements OnInit {
   constructor(private chatService: ChatService, private shared: ReportSharedService) {}
 
   ngOnInit(): void {
+    console.log(this.message)
     if (!this.message?.comments) {
       this.message.comments = [];
     }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Course } from '../course/course.component';
+import { Message } from '../Message.model';
 import { CourService } from '../service/cour.service';
 import { DataService } from '../service/data.service';
 import { ReportSharedService } from '../service/report-shared.service';
@@ -37,11 +38,15 @@ export class ReportComponent{
       this.r = this.r.filter((course) => course.id !== id);
     });
   }
+
+
   MessageDeleted(id: number): void {
+    console.log("report")
+    console.log(id)
     this.dataService.deletedMessage(id).subscribe(() => {
-      this.sh = this.sh.filter((message) => message.id !== id);
+      this.sh = this.sh.filter((m) => m.id !== id);
     });
+    this.sharedService.deleteMessage(id); // Update here
+  }
   }
   
-
-}

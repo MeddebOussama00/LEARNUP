@@ -9,7 +9,7 @@ import { LoginService } from '../service/login.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  loginForm!: FormGroup; // Use ! operator to assert non-null
+  loginForm!: FormGroup; 
   emailErrorMessage: string = '';
   passwordErrorMessage: string = '';
   submitting = false;
@@ -20,13 +20,13 @@ export class LoginComponent implements OnInit {
   emailControl = new FormControl('', [Validators.required, Validators.email]);
 
   constructor(
-    private formBuilder: FormBuilder,
     private loginService: LoginService,
     private router: Router
   ) {}
 
+
   ngOnInit(): void {
-    this.loginForm = this.formBuilder.group({
+    this.loginForm = new FormGroup({ 
       email: this.emailControl,
       password: new FormControl('', [Validators.required])
     });
@@ -48,12 +48,14 @@ export class LoginComponent implements OnInit {
       this.passwordErrorMessage = 'Password is required.';
     }
   }
-  
+
 
   submitForm(event: Event): void {
     event.preventDefault();
     this.validateInput();
+    console.log(this.loginForm)
     if (this.loginForm.valid && !this.submitting) {
+      console.log(this.loginForm)
       this.submitting = true;
       const email = this.loginForm.value.email;
       const password = this.loginForm.value.password;

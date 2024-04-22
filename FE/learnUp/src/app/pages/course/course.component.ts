@@ -32,6 +32,7 @@ export class CourseComponent implements OnInit {
   cour: { idSubject: number, nameSub: string }[] = [];
   courDeletedSubject = new Subject<number>();
   m: string = '';
+  selectedCourse: Course | null = null;
   formArray = new FormArray<FormControl<boolean | null>>(this.cour.map(() => new FormControl(false)));
   private courseSubject: Subject<Course | undefined> = new Subject<Course | undefined>();
 
@@ -39,19 +40,32 @@ export class CourseComponent implements OnInit {
     private c: CourService,
     private s: SearchService,
     private reportService: ReportSharedService) {
+      this.form = this.fb.group({
+        mat: ["", Validators.required],
+        subject: ["", Validators.required], 
+        file: [null, [Validators.required, this.validateFile.bind(this)]],
+      }); 
   }
-  ngOnInit() {
-    this.form = this.fb.group({
-      cour: [null, Validators.required],
-      examn: [null, Validators.required],
-      subject: [null, Validators.required], // Use a single form control for the selected subject
-      file: [null, [Validators.required, this.validateFile.bind(this)]],
-    });
-    
+  ngOnInit() {   
+
     this.fetchCourses();
     this.n = this.s.c;
     this.getCourPop();
+    this.reportService.accountDoc$.subscribe((data: Course[]) => {
+      this.cs = data;
+    });
+
   }
+  isFormValid(): boolean {
+    const fileControl = this.form.controls['file'];
+    const courControl = this.form.controls['mat'];
+    const subjectControl = this.form.controls['subject'];
+    console.log('File control valid:', fileControl.valid);
+    console.log('Cour control value:', courControl.value);
+    console.log('Subject control value:', subjectControl.value);
+    return fileControl.valid && courControl.value !== '' && subjectControl.value !== '';
+  }
+  
   
   getSelectedSubject(): number | undefined {
     return this.form.get('subject')?.value;
@@ -62,44 +76,55 @@ export class CourseComponent implements OnInit {
     }
     return null;
   }
-  GetFile(event: any) {
-    const file = event.target.files[0];
-    if (!file) {
-      return null;
-    }
-    const fileReader = new FileReader();
-    fileReader.onload = (e: any) => {
-      const fileContent = e.target.result;
-      const selectedSubjectId = this.getSelectedSubject();
-      if (selectedSubjectId !== undefined) {
-        const course: Course = {
-          id: this.d.generateSimpleId(),
-          title: file.name,
-          data: new Uint8Array(fileContent as ArrayBuffer), // convert fileContent to ArrayBuffer
-          type: 'cour',
-          date: new Date(),
-          nblike: 0,
-          nbdislike: 0,
-          report: 0,
-          id_U: 1,
-          id_sub: selectedSubjectId
+
+  getfile(event: Event) {
+    const target = event.target as HTMLInputElement;
+    const file = target?.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event: ProgressEvent<FileReader>) => {
+        const fileData = (event.target as FileReader).result as ArrayBuffer;
+        const selectedSubjectId = this.getSelectedSubject();
+        if (selectedSubjectId !== undefined) {
+          const course: Course = {
+            id: 0,
+            title: file.name,
+            // Convert ArrayBuffer to Uint8Array
+            data: new Uint8Array(fileData),
+            type: 'cour',
+            date: new Date(),
+            nblike: 0,
+            nbdislike: 0,
+            report: 0,
+            id_U: 1, // Replace with the actual user ID
+            id_sub: selectedSubjectId
+          };
+          this.selectedCourse = course; 
         }
-        this.courseSubject.next(course); // emit the course object through the subject
-      }
-    };
-    fileReader.readAsArrayBuffer(file);
-    return null;
+      };
+      reader.readAsArrayBuffer(file);
+    }
   }
-  FileUpload(event: Event) {
-    this.courseSubject.subscribe((course) => {
-      console.log(course)
-      if (course) {
-        this.d.upload(course).subscribe(() => {
+
+  onAddCourse() {
+    if (this.selectedCourse) {
+      console.log( this.selectedCourse)
+      this.d.upload(this.selectedCourse).subscribe(
+        (response) => {
+          console.log('Course added successfully:', response);
           this.fetchCourses();
-        });
-      }
-    });
+
+        },
+        (error) => {
+          console.error('Error adding course:', error);
+        }
+      );
+    } else {
+      console.error('No course data to add.');
+    }
   }
+
+
 fetchCourses(): void {
             this.c.getCour().subscribe((data: any[]) => {
               this.cs= data.map(item => ({
@@ -115,6 +140,7 @@ fetchCourses(): void {
                 id_sub: item.subject_id2 
               }));
               this.cs.forEach(c => this.d.set(c));
+              this.reportService.updateAccountDocSubject(this.cs);
             });
             this.courDeletedSubject.subscribe((id: number) => {
               this.d.deletedCour(id).subscribe(() => {

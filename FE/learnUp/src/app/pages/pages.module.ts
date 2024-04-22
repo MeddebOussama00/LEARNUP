@@ -17,19 +17,20 @@ import { LoginComponent } from './login/login.component';
 import { CommunityChatComponent } from './community-chat/community-chat.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CourseComponent } from './course/course.component';
+import { AccountComponent } from './account/account.component';
 @NgModule({
   declarations: [
     SearchComponent,
     HeaderComponent,
     CourComponent,
     ExamnComponent,
-    ChatComponent,HOMEComponent, LoginComponent,ReportComponent, MsgComponent, DocComponent, CommunityChatComponent, LoginComponent, CourseComponent
+    ChatComponent,HOMEComponent, LoginComponent,AccountComponent,ReportComponent, MsgComponent, DocComponent, CommunityChatComponent, LoginComponent, CourseComponent, AccountComponent
   ],
   imports: [
     CommonModule, RouterModule,FormsModule, ReactiveFormsModule,SweetAlert2Module.forRoot(),HttpClientModule
   ],
   exports : [
-    SearchComponent,HeaderComponent,CourseComponent,ExamnComponent,HOMEComponent,ReportComponent,LoginComponent,CommunityChatComponent
+    SearchComponent,HeaderComponent,AccountComponent,CourseComponent,ExamnComponent,HOMEComponent,ReportComponent,LoginComponent,CommunityChatComponent
   ]
 })
 export class PagesModule { }

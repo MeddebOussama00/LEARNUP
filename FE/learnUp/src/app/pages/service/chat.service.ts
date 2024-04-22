@@ -25,14 +25,14 @@ export class ChatService {
       map(response => {
         return response.map((item: any) => { 
           const message: Message = {
-            id: item.id,
+            id: item.idMessage,
             sender: item.username, 
             content: item.msg,
             date: new Date(item.dateMessage), 
             nblike: item.nblike,
             nbdislike: item.nbdislike,
             report:item.report,
-            id_user: item.id_user, // Assuming "id_user" is available in the response
+            id_user: item.id, // Assuming "id_user" is available in the response
             comments: item.responses.map((responseItem: any) => {
               const comment: Commentaire = {
                 id: responseItem.id_r,
@@ -107,8 +107,6 @@ export class ChatService {
       catchError(() => of(newComment))
     );
   }
-
-
   Putlike(c:number){
     const requestData = { id: c, data:'1'}; 
     return this.http.put(`${this.url}?query=like`, requestData)
@@ -130,6 +128,7 @@ export class ChatService {
     );
   }
   putMessage(id: number): Observable<any> {
+    console.log(id)
     const requestData = { id: id, data:'1'}; 
     return this.http.put(`${this.url}?query=putReport`, requestData)
       .pipe(
@@ -140,6 +139,7 @@ export class ChatService {
       );
   }
   getReportMessage(){
+
     return this.http.get<any[]>(`${this.url}?query=get`).pipe(
       map(response => {
         return response.map((item: any) => { 

@@ -15,7 +15,7 @@
         <i
           (click)="deleteMessage(c.id)"
           class="fa-solid fa-3x fa-trash-can pointer-none"
-          style="pointer-events: none"
+          style="pointer-events: pointer"
         ></i>
       </div>
     </div>
@@ -29,7 +29,7 @@
             <div><i class="fas fa-3x mb-3 fa-check-circle"></i></div>
             <div>
               <i
-                (click)="deleteMessage(c.id)"
+                (click)="deleteMessage(c.idMessage)"
                 class="fa-solid fa-3x fa-trash-can"
               ></i>
             </div>

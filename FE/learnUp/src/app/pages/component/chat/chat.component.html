@@ -25,7 +25,7 @@
   <div class="text-center col-md">
     <button class="btn">
       <i
-        class="fa-solid fa-2x fa-thumb-down"
+        class="fa-solid fa-2x fa-thumbs-down"
         [ngClass]="{ 'text-success': message.nbdislike != 0 }"
         aria-hidden="true"
       ></i>
@@ -42,7 +42,7 @@
   </div>
   <div class="text-center col-md">
     <button type="button">
-      <i id="rep" class="fa-solid fa-flag fa-2x"></i>
+      <i id="rep" (click)="reportMessage()" class="fa-solid fa-flag fa-2x"></i>
     </button>
   </div>
   <div *ngIf="showCommentInput" class="col-5">

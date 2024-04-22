@@ -9,13 +9,22 @@ import { catchError, map, Observable, of } from 'rxjs';
 export class SearchService {
   c!:string
   query = '';
+  private hasVisitedSearch = false;
+
   url='http://localhost/learnUp/search.php';
   url2='http://localhost/learnUp/chat.php';
   constructor( private http:HttpClient) {  }
   setClass(n:string){
     this.c=n;
   }
-  
+
+  setVisitedSearch() {
+    this.hasVisitedSearch = true;
+  }
+
+  getVisitedSearch() {
+    return this.hasVisitedSearch;
+  }
   getAllLevel(): Observable<{ namelevel: string, idlevel: number }[]> {
     this.query = 'level';
     return this.http.get<any[]>(`${this.url}?query=${this.query}`).pipe(

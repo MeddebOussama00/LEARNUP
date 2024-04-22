@@ -7,14 +7,14 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class MsgComponent implements OnInit {
   @Input() c: any;
-  @Output() MessageDeleted = new EventEmitter<number>(); // Change 'deletmessage' to 'MessageDeleted'
+  @Output() MessageDeleted = new EventEmitter<number>(); 
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  deleteMessage(id: number): void { // Change 'MessageDeleted' to 'deleteMessage'
+  deleteMessage(id: number): void {
     this.MessageDeleted.emit(id);
   }
 }

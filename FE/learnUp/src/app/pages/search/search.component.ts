@@ -25,6 +25,7 @@ export class SearchComponent   {
       this.search.getAllLevel().subscribe((data: { namelevel: string, idlevel: number }[]) => {
         this.levels = data;
       });
+      this.search.setVisitedSearch();
     }
     getCouId(){
       const cd = this.f.get("course")?.value;

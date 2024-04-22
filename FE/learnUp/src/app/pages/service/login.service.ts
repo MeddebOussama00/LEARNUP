@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 
 @Injectable({
@@ -9,7 +10,7 @@ export class LoginService {
   private id: string | null = null;
   private type: string | null = null;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private router: Router ) { }
 
   private setId(id: string | undefined): void {
     this.id = id || null;
@@ -45,5 +46,10 @@ export class LoginService {
 
   getType(): string | null {
     return this.type;
+  }
+  logout(){
+    return this.http.get('http://localhost/learnUp/logout.php' ).subscribe(()=>{
+      this.router.navigate(['/login'])
+    })
   }
 }

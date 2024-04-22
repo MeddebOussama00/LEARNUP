@@ -1,0 +1,126 @@
+<app-header></app-header>
+<div class="bcolor">
+  <div class="container-fluid row">
+    <div class="col-md-3">
+      <div class="avatar-section text-center">
+        <div class="avatar-circle">
+          <img src="../assets/img/dog.jpg" alt="User Avatar" class="avatar" />
+        </div>
+        <div class="user-info">
+          <p>
+            <strong>Username:</strong> UserName
+            <button class="btn btn-link"><i class="fa fa-pencil"></i></button>
+          </p>
+          <p>
+            <strong>Email:</strong> E-mail
+            <button class="btn btn-link"><i class="fa fa-pencil"></i></button>
+          </p>
+          <p>
+            <strong>Password:</strong> Password
+            <button class="btn btn-link"><i class="fa fa-pencil"></i></button>
+          </p>
+          <button (click)="logout()" class="btn btn-danger logout-btn">
+            Logout
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div *ngFor="let d of r" class="row my-3 d-flex align-items-center">
+        <div class="col-md-7 post">
+          <div class="row d-flex justify-content-between">
+            <div class="col-md-3">
+              <i class="fa-solid fa-4x fa-file-pdf"></i>
+            </div>
+            <div class="col">
+              <p class="fs-4">{{ d.date }}</p>
+              <p class="fs-4">{{ d.title }}</p>
+            </div>
+            <div class="col-md-auto d-none d-md-flex align-items-center">
+              <i class="fa-solid fa-4x fa-circle-user"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md text-center">
+          <div class="row">
+            <div class="col">
+              <button class="btn">
+                <i
+                  disabled
+                  class="fa-solid fa-2x fa-thumbs-up"
+                  aria-hidden="true"
+                ></i>
+              </button>
+              <b>{{ d.nblike }}</b>
+            </div>
+            <div class="col">
+              <button class="btn">
+                <i
+                  disabled
+                  class="fa-solid fa-2x fa-thumbs-down"
+                  aria-hidden="true"
+                ></i>
+              </button>
+              <b>{{ d.nbdislike }}</b>
+            </div>
+            <div class="col">
+              <button type="button" class="btn">
+                <i
+                  (click)="deleteDocument(d.id_d)"
+                  class="fa-solid fa-3x fa-trash-can"
+                ></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="row my-3"
+        *ngFor="let d of sh"
+        message-container
+        d-flex
+        align-items-center
+        flex-row
+      >
+        <div class="message col-6 d-flex align-items-center">
+          <div class="me-3">
+            <i class="fa-solid fa-3x mt-2 fa-circle-user"></i>
+          </div>
+          <div class="message-content">
+            <div class="h3">{{ d.date }}</div>
+            <div class="h5 sender">{{ d.username }}</div>
+            <div>{{ d.msg }}</div>
+          </div>
+        </div>
+        <div class="text-center col-md">
+          <button class="btn">
+            <i
+              disabled
+              class="fa-solid fa-2x fa-thumbs-up"
+              aria-hidden="true"
+            ></i>
+          </button>
+          <b>0</b>
+        </div>
+        <div class="text-center col-md">
+          <button class="btn">
+            <i
+              disabled
+              class="fa-solid fa-2x fa-thumbs-down"
+              aria-hidden="true"
+            ></i>
+          </button>
+          <b>0</b>
+        </div>
+        <div class="text-center col-md">
+          <i
+            (click)="deleteMessage(d.idMessage)"
+            class="fa-solid fa-3x fa-trash-can"
+          ></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
