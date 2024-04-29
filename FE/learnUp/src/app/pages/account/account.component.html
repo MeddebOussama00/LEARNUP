@@ -19,7 +19,7 @@
             <strong>Password:</strong> Password
             <button class="btn btn-link"><i class="fa fa-pencil"></i></button>
           </p>
-          <p *ngIf="type">
+          <p *ngIf="type == 'admin'">
             <a class="text-decoration-none" routerLink="/report"
               >Go to report</a
             >

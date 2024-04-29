@@ -25,17 +25,17 @@
     <button (click)="likeCount()" class="btn">
       <i
         class="fa-solid fa-2x fa-thumbs-up"
-        [ngClass]="{ 'text-success': message.nblike > 0 }"
+        [ngClass]="{ 'text-white': message.nblike > 0 }"
         aria-hidden="true"
       ></i>
     </button>
-    <b [ngClass]="{ 'text-success': message.nblike }">{{ message.nblike }}</b>
+    <b [ngClass]="{ 'text-white': message.nblike }">{{ message.nblike }}</b>
   </div>
   <div class="text-center col-md">
     <button class="btn" (click)="dislikeCount()">
       <i
         class="fa-solid fa-2x fa-thumbs-down"
-        [ngClass]="{ 'text-success': message.nbdislike > 0 }"
+        [ngClass]="{ 'text-danger': message.nbdislike > 0 }"
         aria-hidden="true"
       ></i>
     </button>
@@ -50,8 +50,12 @@
     </button>
   </div>
   <div class="text-center col-md">
-    <button type="button">
-      <i id="rep" (click)="reportMessage()" class="fa-solid fa-flag fa-2x"></i>
+    <button (click)="reportMessage()" type="button" class="btn">
+      <i
+        id="rep"
+        [ngClass]="{ 'text-danger': message.report == 1 }"
+        class="fa-solid fa-flag fa-2x"
+      ></i>
     </button>
   </div>
   <div *ngIf="showCommentInput" class="col-5">

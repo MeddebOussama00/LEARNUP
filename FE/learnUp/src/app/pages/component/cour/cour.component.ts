@@ -19,12 +19,13 @@ export class CourComponent implements OnInit {
   constructor( private c :CourService,private d:DataService,private shared :ReportSharedService) {}
   
   ngOnInit(): void {}
+
+ 
   reportCourse() {
     this.cours.report = 1;
     this.c.putCour(this.cours.id).subscribe();
-    this.shared.reportCourse(this.cours);
+    this.shared.reportCourse(this.cours)
   }
-
   likeCount(): void {
     if (this.cours && this.cours.nblike !== undefined) {
       this.cours.nblike++;

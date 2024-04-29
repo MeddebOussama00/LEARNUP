@@ -42,14 +42,16 @@ export class ReportComponent implements OnInit{
 
   courDeleted(id: number): void {
     this.dataService.deletedCour(id).subscribe(() => {
-      this.r = this.r.filter(course => course.id !== id);
+      this.sharedService.deleteDocument(id);
+      this.loadData();
     });
   }
 
   MessageDeleted(id: number): void {
     this.dataService.deletedMessage(id).subscribe(() => {
-      this.sh = this.sh.filter(m => m.id !== id);
+      this.sharedService.deleteMessage(id);
+      this.loadData();
     });
-    this.sharedService.deleteMessage(id);
+    
   }
 }
