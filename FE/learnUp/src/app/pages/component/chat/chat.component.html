@@ -4,40 +4,49 @@
       <i class="fa-solid fa-3x mt-2 fa-circle-user"></i>
     </div>
     <div class="message-content">
-      <div class="h3">
+      <div class="h3 text-primary">
         {{ message.date | date : "mediumDate" }}
       </div>
-      <div class="h5 sender">{{ message.sender }}</div>
-      <div>{{ message.content }}</div>
-      <div *ngFor="let d of message?.comments">
-        <p>{{ d.content }}</p>
+      <div class="h4 sender">{{ message.sender }} :</div>
+      <div class="msg">
+        <b>{{ message.content }}</b>
+        <div class="comment-section w-100">
+          <p>Repply to you :</p>
+          <div *ngFor="let d of message?.comments; let i = index">
+            <p class="text-secondary" style="padding: 5px">
+              {{ i + 1 }} - {{ d.content }}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
   <div class="text-center offset-1 col-md">
-    <button class="btn">
-      <i class="fa-solid fa-2x fa-thumbs-up" aria-hidden="true"></i>
-    </button>
-    <b [ngClass]="{ 'text-success': message.nblike != 0 }">{{
-      message.nblike
-    }}</b>
-  </div>
-  <div class="text-center col-md">
-    <button class="btn">
+    <button (click)="likeCount()" class="btn">
       <i
-        class="fa-solid fa-2x fa-thumbs-down"
-        [ngClass]="{ 'text-success': message.nbdislike != 0 }"
+        class="fa-solid fa-2x fa-thumbs-up"
+        [ngClass]="{ 'text-success': message.nblike > 0 }"
         aria-hidden="true"
       ></i>
     </button>
-    <b [ngClass]="{ 'text-danger': message.nbdislike != 0 }">{{
+    <b [ngClass]="{ 'text-success': message.nblike }">{{ message.nblike }}</b>
+  </div>
+  <div class="text-center col-md">
+    <button class="btn" (click)="dislikeCount()">
+      <i
+        class="fa-solid fa-2x fa-thumbs-down"
+        [ngClass]="{ 'text-success': message.nbdislike > 0 }"
+        aria-hidden="true"
+      ></i>
+    </button>
+    <b [ngClass]="{ 'text-danger': message.nbdislike }">{{
       message.nbdislike
     }}</b>
   </div>
   <div class="text-center col-md">
     <button type="button" (click)="toggleCommentInput()">
       <i aria-hidden="true" class="fa-regular fa-2x fa-comment"></i>
-      <span class="placeholder" *ngIf="showCommentInput">Reply</span>
+      <span class="placeholder" *ngIf="showCommentInput"></span>
     </button>
   </div>
   <div class="text-center col-md">

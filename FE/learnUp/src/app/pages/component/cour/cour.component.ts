@@ -26,16 +26,17 @@ export class CourComponent implements OnInit {
   }
 
   likeCount(): void {
-    this.isLiked = true;
     if (this.cours && this.cours.nblike !== undefined) {
       this.cours.nblike++;
+      this.c.Putlike(this.cours.id).subscribe(()=>{console.log("succes")});
     }
   }
 
   dislikeCount(): void {
-    this.isDisliked = true;
     if (this.cours && this.cours.nbdislike!== undefined)  {
       this.cours.nbdislike++;
+      this.c.Putdislike(this.cours.id).subscribe(()=>{console.log("succes")});
+
     }
   }
 
@@ -43,7 +44,7 @@ export class CourComponent implements OnInit {
 
   download(): void {
     if (this.cours && this.cours.data) {
-      const blob = new Blob([this.cours.data]); // Convert Uint8Array to Blob
+      const blob = new Blob([this.cours.data]); 
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;

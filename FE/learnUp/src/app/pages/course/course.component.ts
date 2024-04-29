@@ -70,6 +70,9 @@ export class CourseComponent implements OnInit {
   getSelectedSubject(): number | undefined {
     return this.form.get('subject')?.value;
   }  
+  getSelectedType(): string| undefined {
+    return this.form.get('mat')?.value;
+  }
   validateFile(control: FormControl): { [key: string]: any } | null {
     if (control.value && control.value.type !== 'application/pdf') {
       return { 'fileType': true };
@@ -85,18 +88,19 @@ export class CourseComponent implements OnInit {
       reader.onload = (event: ProgressEvent<FileReader>) => {
         const fileData = (event.target as FileReader).result as ArrayBuffer;
         const selectedSubjectId = this.getSelectedSubject();
-        if (selectedSubjectId !== undefined) {
+        const mat=this.getSelectedType()
+        if (selectedSubjectId !== undefined && mat!==undefined) {
+
           const course: Course = {
             id: 0,
             title: file.name,
-            // Convert ArrayBuffer to Uint8Array
             data: new Uint8Array(fileData),
-            type: 'cour',
+            type: mat,
             date: new Date(),
             nblike: 0,
             nbdislike: 0,
             report: 0,
-            id_U: 1, // Replace with the actual user ID
+            id_U: 1, 
             id_sub: selectedSubjectId
           };
           this.selectedCourse = course; 
@@ -152,10 +156,10 @@ getCourPop(): void {
   if (this.n) {
     this.s.getAllCour(this.n).subscribe((data: { idSubject: number, nameSub: string }[]) => {
       this.cour = data;
-      const formArray = this.formArray; // Use the initialized formArray variable
-      formArray.clear(); // Clear any existing controls
+      const formArray = this.formArray; 
+      formArray.clear(); 
       this.cour.forEach(subject => {
-        formArray.push(new FormControl(false)); // Add a FormControl for each subject
+        formArray.push(new FormControl(false)); 
       });
     });
   }

@@ -1,0 +1,68 @@
+<div class="row">
+  <div class="col-md-6 w-50" id="loula">
+    <form
+      [formGroup]="signupForm"
+      (ngSubmit)="signup($event)"
+      class="needs-validation"
+    >
+      <div class="mb-3 mb-input">
+        <label for="username" class="form-label">Username:</label>
+        <input
+          type="text"
+          id="username"
+          formControlName="username"
+          class="form-control ml-input"
+          placeholder="Enter your username"
+        />
+      </div>
+      <div class="mb-3 mb-input">
+        <label for="email" class="form-label">Email:</label>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          class="form-control ml-input"
+          placeholder="Enter your email"
+        />
+      </div>
+      <div class="mb-3 mb-input">
+        <label for="password" class="form-label">Password:</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          class="form-control ml-input"
+          placeholder="Enter your password"
+        />
+      </div>
+      <div class="mb-3 mb-input">
+        <label for="confirmPassword" class="form-label"
+          >Confirm Password:</label
+        >
+        <input
+          type="password"
+          id="confirmPassword"
+          formControlName="confirmPassword"
+          class="form-control ml-input"
+          placeholder="Confirm your password"
+        />
+      </div>
+      <div class="center-signup">
+        <button type="submit" class="btn btn-primary signup-btn">
+          Sign Up
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="col-md-6 w-50" id="deuxieme">
+    <div class="text-center">
+      <img src="assets\img\dog.jpg" alt="Website Logo" class="img-fluid mb-4" />
+      <p>
+        Introduction <span class="lrup">LearnUp</span> , the app that simplifies
+        studying for busy students!Access materials,join discussions,and get
+        help with challenging subjects. <span class="lrup">LearnUp</span> is
+        user-freindly and designed to make learning easy!
+      </p>
+    </div>
+  </div>
+</div>

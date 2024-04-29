@@ -16,7 +16,7 @@ export class CommunityChatComponent implements OnInit {
   constructor(private chatService: ChatService, private r: ReportSharedService) { }
 
   ngOnInit(): void {
-    this.loadMessages();
+    this.loadMessages()
     this.r.reportedMessage$.subscribe((reportedMessages: Message[]) => {
       if (this.messages$) {
         this.messages$ = this.messages$.pipe(
@@ -24,8 +24,10 @@ export class CommunityChatComponent implements OnInit {
         );
       }
     });
-    this.messages$=this.r.Allmsg$
+  
+   
   }
+  
   
   
   loadMessages(): void {
@@ -36,7 +38,7 @@ export class CommunityChatComponent implements OnInit {
     if (this.newMessage.trim() !== '') {
       this.chatService.addMessage(this.newMessage)
         .subscribe(() => {
-          this.loadMessages(); 
+          this.loadMessages()
           this.newMessage = '';
         });
     }

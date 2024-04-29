@@ -14,6 +14,7 @@ import { SearchService } from '../service/search.service';
 export class ExamnComponent implements OnInit {
   sh : Course[] = [];
   n!: string;
+  selectedCourse: Course | null = null;
   form!: FormGroup;
   cour: { idSubject: number, nameSub: string }[] = [];
   courDeletedSubject = new Subject<number>();
@@ -25,7 +26,7 @@ export class ExamnComponent implements OnInit {
     this.form = this.fb.group({
       cour: [null, Validators.required],
       examn: [null, Validators.required],
-      subject: [null, Validators.required], // Use a single form control for the selected subject
+      subject: [null, Validators.required], 
       file: [null, [Validators.required, this.validateFile.bind(this)]],
     });
     
@@ -35,6 +36,7 @@ export class ExamnComponent implements OnInit {
   }
   fetchCourses(): void {
     this.c.getexman().subscribe((data: any[]) => {
+      console.log(data);
       this.sh= data.map(item => ({
         id: item.id_d,
         title: item.title,
@@ -59,10 +61,10 @@ export class ExamnComponent implements OnInit {
     if (this.n) {
       this.s.getAllCour(this.n).subscribe((data: { idSubject: number, nameSub: string }[]) => {
         this.cour = data;
-        const formArray = this.formArray; // Use the initialized formArray variable
-        formArray.clear(); // Clear any existing controls
+        const formArray = this.formArray; 
+        formArray.clear(); 
         this.cour.forEach(subject => {
-          formArray.push(new FormControl(false)); // Add a FormControl for each subject
+          formArray.push(new FormControl(false)); 
         });
       });
     }
@@ -76,33 +78,36 @@ export class ExamnComponent implements OnInit {
     }
     return null;
   }
-  GetFile(event: any) {
-    const file = event.target.files[0];
-    if (!file) {
-      return null;
-    }
-    const fileReader = new FileReader();
-    fileReader.onload = (e: any) => {
-      const fileContent = e.target.result;
-      const selectedSubjectId = this.getSelectedSubject();
-      if (selectedSubjectId !== undefined) {
-        const course: Course = {
-          id: 0,
-          title: file.name,
-          data: new Uint8Array(fileContent as ArrayBuffer), // convert fileContent to ArrayBuffer
-          type: 'cour',
-          date: new Date(),
-          nblike: 0,
-          nbdislike: 0,
-          report: 0,
-          id_U: 1,
-          id_sub: selectedSubjectId
+  getSelectedType(): string| undefined {
+    return this.form.get('mat')?.value;
+  }
+  getfile(event: Event) {
+    const target = event.target as HTMLInputElement;
+    const file = target?.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event: ProgressEvent<FileReader>) => {
+        const fileData = (event.target as FileReader).result as ArrayBuffer;
+        const selectedSubjectId = this.getSelectedSubject();
+        const mat=this.getSelectedType()
+        if (selectedSubjectId !== undefined && mat!==undefined) {
+          const course: Course = {
+            id: 0,
+            title: file.name,
+            data: new Uint8Array(fileData),
+            type: mat,
+            date: new Date(),
+            nblike: 0,
+            nbdislike: 0,
+            report: 0,
+            id_U: 1, 
+            id_sub: selectedSubjectId
+          };
+          this.selectedCourse = course; 
         }
-        this.courseSubject.next(course); // emit the course object through the subject
-      }
-    };
-    fileReader.readAsArrayBuffer(file);
-    return null;
+      };
+      reader.readAsArrayBuffer(file);
+    }
   }
   FileUpload(event: Event) {
     this.courseSubject.subscribe((course) => {

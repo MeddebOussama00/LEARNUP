@@ -2,7 +2,7 @@
   <div class="row pt-3 d-flex align-items-center">
     <div class="col-md-6 col-12 message">
       <i class="fa-solid fa-3x mt-2 fa-circle-user"></i>
-      <div class="h5">1{{ c.dateMessage }}</div>
+      <div class="h5">{{ c.dateMessage }}</div>
       <div class="h4 sender">{{ c.username }}</div>
       <div class="content">{{ c.msg }}</div>
       <div *ngFor="let m of c.responses">{{ m.msg }}</div>
@@ -11,13 +11,13 @@
       class="d-none d-md-flex col-md-2 col-6 text-center d-flex flex-column align-items-center"
     >
       <div><i class="fas fa-3x pb-4 fa-check-circle"></i></div>
-      <div>
+      <button type="button" class="btn">
         <i
           (click)="deleteMessage(c.id)"
-          class="fa-solid fa-3x fa-trash-can pointer-none"
+          class="fa-solid fa-3x fa-trash-can"
           style="pointer-events: pointer"
         ></i>
-      </div>
+      </button>
     </div>
     <div class="col d-flex align-items-center justify-content-center">
       <div class="row">
@@ -27,12 +27,9 @@
           </div>
           <div>
             <div><i class="fas fa-3x mb-3 fa-check-circle"></i></div>
-            <div>
-              <i
-                (click)="deleteMessage(c.idMessage)"
-                class="fa-solid fa-3x fa-trash-can"
-              ></i>
-            </div>
+            <button type="button" class="btn">
+              <i class="fa-solid fa-3x fa-trash-can"></i>
+            </button>
           </div>
         </div>
       </div>

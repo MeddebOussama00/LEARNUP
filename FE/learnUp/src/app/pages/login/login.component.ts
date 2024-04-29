@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private loginService: LoginService,
-    private router: Router
+    private route: Router
   ) {}
 
 
@@ -49,13 +49,13 @@ export class LoginComponent implements OnInit {
     }
   }
 
-
+signup(){
+  this.route.navigate(['/register']);}
+  
   submitForm(event: Event): void {
     event.preventDefault();
     this.validateInput();
-    console.log(this.loginForm)
     if (this.loginForm.valid && !this.submitting) {
-      console.log(this.loginForm)
       this.submitting = true;
       const email = this.loginForm.value.email;
       const password = this.loginForm.value.password;
@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit {
             if (this.loginService.getType()) {
               this.type = this.loginService.getType();
             }
-            this.router.navigate(['/Search']);
+            this.route.navigate(['/Search']);
           } else {
             this.error = 'Email or password is incorrect. Please try again.';
           }

@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { query } from 'express';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 import { Course } from '../course/course.component';
 @Injectable({
   providedIn: 'root'
@@ -56,7 +56,7 @@ export class CourService {
   }
   getexman(): Observable<[]> {
     const params = new HttpParams().set('c', this.courID.toString());
-    return this.http.get<[]>(this.url+ '?query=exam,', { params }).pipe(
+    return this.http.get<[]>(this.url+ '?query=examn', { params }).pipe(
       catchError((error: any) => {
         console.error(error);
         return [];
@@ -72,4 +72,5 @@ export class CourService {
     const blob = new Blob([byteArray], { type: contentType });
     return blob;
   }
+  
 }

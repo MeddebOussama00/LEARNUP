@@ -6,27 +6,32 @@ import { ReportComponent } from './pages/report/report.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AccountComponent } from './pages/account/account.component';
 import { AuthSeachService } from './pages/service/auth-seach.service';
+import { SignupComponent } from './pages/signup/signup.component';
+import { AuthGuardService } from './pages/service/auth-guard.service';
 
 const routes: Routes = [
-  {path:'login',
-  component:LoginComponent
-},
-  {
-    path: 'search',
-    component: SearchComponent
+  /*{path:'', redirectTo: '/login', pathMatch: 'full'},*/
+  {path:'',
+    component:LoginComponent
+  },
+  {path:'register',
+    component:SignupComponent},
+  {path:'Search',
+    component: SearchComponent,canActivate: [AuthGuardService],
   },
   {
     path: 'home',
-    canActivate: [AuthSeachService], // Apply AuthGuard to home route
+    canActivate: [AuthSeachService], 
     loadChildren: () => import('./pages/home/home.module').then(m => m.HOMEModule)
   },
   {
     path: 'report',
+    canActivate:[AuthGuardService], 
     component: ReportComponent
   },
   {
     path: 'profile',
-    canActivate: [AuthSeachService], // Apply AuthGuard to profile route
+    canActivate: [AuthGuardService], 
     component: AccountComponent
   }];
 

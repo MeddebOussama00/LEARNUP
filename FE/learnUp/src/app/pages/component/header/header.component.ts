@@ -10,8 +10,5 @@ import { Router } from '@angular/router';
 export class HeaderComponent {
 
   constructor(private location: Location,private router: Router) { }
-  GoBack() {
-    this.location.back();
-  }
 
 }

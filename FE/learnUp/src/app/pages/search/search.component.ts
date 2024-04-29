@@ -68,10 +68,12 @@ export class SearchComponent   {
         title: "Wrong",
         text: 'Please fill out all required fields',
       });
-      btn.disabled=true;
-    }
+      btn.disabled=true
+      return 
+    } 
     btn.disabled=false;
     this.route.navigate(['/home/Cour']);
+
   }
 }
 

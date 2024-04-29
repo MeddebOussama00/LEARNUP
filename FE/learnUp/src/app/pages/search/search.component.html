@@ -14,7 +14,7 @@
   <div class="container">
     <form [formGroup]="f" (ngSubmit)="onSubmit()">
       <div class="row pt-5 form-group justify-content-between">
-        <div class="col-md col-sm-6">
+        <div class="col-md">
           <div class="dropdown">
             <select
               id="level"
@@ -26,7 +26,7 @@
               required
               (change)="getSpe()"
             >
-              <option disabled [value]="null">Select a level</option>
+              <option value="">Select a level</option>
               <option *ngFor="let d of levels" [value]="d.idlevel">
                 {{ d.namelevel }}
               </option>
@@ -45,7 +45,7 @@
               required
               (change)="getclass()"
             >
-              <option value="null">Select a speciality</option>
+              <option value="">Select a speciality</option>
               <option *ngFor="let d of spec" [value]="d.idspe">
                 {{ d.namespe }}
               </option>
@@ -64,14 +64,14 @@
               required
               (change)="getCour()"
             >
-              <option disabled value="null">Select a class</option>
+              <option value="">Select a class</option>
               <option *ngFor="let d of cl" [value]="d.idclass">
                 {{ d.nameclass }}
               </option>
             </select>
           </div>
         </div>
-        <div class="col-md col-sm-6 d-none d-md-block">
+        <div class="col-md col-sm-12 d-none d-md-block">
           <div class="dropdown">
             <select
               id="cours"
@@ -83,7 +83,7 @@
               (change)="getCouId()"
               required
             >
-              <option value="null">Select a Cours</option>
+              <option value="">Select a level</option>
               <option
                 class="text-dark"
                 *ngFor="let d of cour"

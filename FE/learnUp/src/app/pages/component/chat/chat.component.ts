@@ -19,23 +19,23 @@ export class ChatComponent implements OnInit {
   constructor(private chatService: ChatService, private shared: ReportSharedService) {}
 
   ngOnInit(): void {
-    console.log(this.message)
     if (!this.message?.comments) {
       this.message.comments = [];
     }
   }
 
   likeCount(): void {
-    this.isLiked = true;
     if (this.message && this.message.nblike !== undefined) {
       this.message.nblike++;
+      this.chatService.Putlike(this.message.id).subscribe(()=>{console.log("succes")});
     }
   }
 
   dislikeCount(): void {
-    this.isDisliked = true;
     if (this.message && this.message.nbdislike!== undefined)  {
       this.message.nbdislike++;
+      this.chatService.Putdislike(this.message.id).subscribe(()=>{console.log("succes")});
+
     }
   }
   reportMessage() {
@@ -51,11 +51,15 @@ export class ChatComponent implements OnInit {
     if (this.newComment.trim() !== '') {
       this.chatService.addComment(this.message?.id, this.newComment)
         .subscribe((comment: Commentaire) => {
-          this.message.comments = this.message.comments ?? [];
-          this.message?.comments.push(comment);
+          if (!this.message.comments) {
+            this.message.comments = []; 
+          }
+          this.message.comments.push(comment); 
+          console.log(this.message.comments)
           this.newComment = '';
           this.showCommentInput = false;
         });
     }
   }
+  
 }  

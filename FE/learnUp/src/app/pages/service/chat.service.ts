@@ -72,7 +72,7 @@ export class ChatService {
       ...newMessage,
       date: formattedDate,
     });
-    console.log(jsonMessage)
+
     return this.http.post<Message>(`${this.url}?query=addmessage`, jsonMessage).pipe(
       catchError((error) => {
         console.error(error);
@@ -93,18 +93,16 @@ export class ChatService {
     if (this.messages[messageId - 1]) {
       this.messages[messageId - 1].comments?.push(newComment);
     }
-
-    const commentData = {
-      id_r: newComment.id.toString(),
-      msg: newComment.content,
-      dateMessage: newComment.date.toISOString(),
-      id: newComment.id_user.toString(),
-      idM: newComment.idM.toString(),
-    };
-    console.log(commentData)
-    const jsonData = JSON.stringify(commentData);
-    return this.http.post<Commentaire>(`${this.url}?query=addcomment`, jsonData).pipe(
-      catchError(() => of(newComment))
+    const formattedDate = this.datePipe.transform(newComment.date, 'yyyy-MM-dd HH:mm:ss');
+    const jsonData = JSON.stringify({
+      ...newComment,
+      dateMessage: formattedDate,
+    });
+    console.log(jsonData)
+    return this.http.post<Commentaire>(`${this.url}?query=addcomment`, jsonData).pipe(      catchError((error) => {
+      console.error(error);
+      return of(newComment);
+    })
     );
   }
   Putlike(c:number){
@@ -173,28 +171,3 @@ export class ChatService {
     );
   }
 }
-
-/*  addComment(messageId: number, content: string): Observable<Commentaire> {
-    const newComment: Commentaire = {
-      id:this.generateSimpleId(),
-      content: content,
-      date: new Date(),
-      id_user: 1,
-      idM: messageId
-    };
-    if (this.messages[messageId - 1]) {
-      this.messages[messageId - 1].comments?.push(newComment);
-    }
-    const commentData = {
-      id_r: newComment.id.toString(),
-      msg: newComment.content,
-      dateMessage: newComment.date.toISOString(),
-      id: newComment.id_user.toString(),
-      idM: newComment.idM.toString()
-    };
-    const jsonData = JSON.stringify(commentData);
-    console.log(jsonData)
-    return this.http.post<Commentaire>(`${this.url}?query=addcomment`,jsonData).pipe(
-      catchError(() => of(newComment))
-    );
-  } */

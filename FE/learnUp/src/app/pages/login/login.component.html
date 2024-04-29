@@ -52,7 +52,15 @@
       </div>
     </div>
     <div class="text-center mt-3">
-      <button type="submit" class="btn btn-info">Login</button>
+      <button
+        type="click"
+        (click)="signup()"
+        id="sign"
+        class="btn btn-info me-4"
+      >
+        Sign Up
+      </button>
+      <button type="submit" id="login" class="btn">Login</button>
       <div class="alert" *ngIf="error">Email or Password invalid</div>
     </div>
   </form>

@@ -1,0 +1,77 @@
+.row{
+    padding: 0;
+    margin: 0;
+}
+  p {
+    font-family: "Brush Script MT", "Brush Script Std", cursive;
+    font-size: 30px;
+}
+#loula{
+    background-color: #f76c6c
+}
+#deuxieme{
+    background-color: #92bfd2
+}
+.lrup{
+  color: red;
+}
+.col-md-6{
+    min-height: 100vh;
+}
+  .mb-input {
+    margin: 50px; 
+  }
+  .ml-input {
+    margin-left: 25px; 
+  }
+  .col-centered {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+
+  .center-signup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+
+  .signup-btn {
+    background-color: #24305E;
+    color: white;
+  }
+  h1 {
+    margin-bottom: 30px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    font-weight: bold;
+  }
+  
+  input[type="text"], input[type="email"], input[type="password"] {
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    box-sizing: border-box;
+    width: 100%;
+  }
+  
+  button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #0069d9;
+  }

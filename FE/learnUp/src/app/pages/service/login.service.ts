@@ -49,7 +49,7 @@ export class LoginService {
   }
   logout(){
     return this.http.get('http://localhost/learnUp/logout.php' ).subscribe(()=>{
-      this.router.navigate(['/login'])
+      this.router.navigate(['/'])
     })
   }
 }

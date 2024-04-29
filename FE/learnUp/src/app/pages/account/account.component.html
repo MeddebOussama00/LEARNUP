@@ -19,6 +19,12 @@
             <strong>Password:</strong> Password
             <button class="btn btn-link"><i class="fa fa-pencil"></i></button>
           </p>
+          <p *ngIf="type">
+            <a class="text-decoration-none" routerLink="/report"
+              >Go to report</a
+            >
+          </p>
+
           <button (click)="logout()" class="btn btn-danger logout-btn">
             Logout
           </button>
@@ -75,7 +81,6 @@
           </div>
         </div>
       </div>
-
       <div
         class="row my-3"
         *ngFor="let d of sh"

@@ -18,13 +18,14 @@ import { CommunityChatComponent } from './community-chat/community-chat.componen
 import { HttpClientModule } from '@angular/common/http';
 import { CourseComponent } from './course/course.component';
 import { AccountComponent } from './account/account.component';
+import { SignupComponent } from './signup/signup.component';
 @NgModule({
   declarations: [
     SearchComponent,
     HeaderComponent,
     CourComponent,
     ExamnComponent,
-    ChatComponent,HOMEComponent, LoginComponent,AccountComponent,ReportComponent, MsgComponent, DocComponent, CommunityChatComponent, LoginComponent, CourseComponent, AccountComponent
+    ChatComponent,HOMEComponent, LoginComponent,AccountComponent,ReportComponent, MsgComponent, DocComponent, CommunityChatComponent, LoginComponent, CourseComponent, AccountComponent, SignupComponent
   ],
   imports: [
     CommonModule, RouterModule,FormsModule, ReactiveFormsModule,SweetAlert2Module.forRoot(),HttpClientModule

@@ -10,15 +10,15 @@ import { ChatService } from './chat.service';
   providedIn: 'root'
 })
 export class ReportSharedService {
-  private reportedCoursesSubject = new BehaviorSubject<Course[]>([]);
+  reportedCoursesSubject = new BehaviorSubject<Course[]>([]);
   reportedCourses$ = this.reportedCoursesSubject.asObservable();
-  private AllCoursesSubject = new BehaviorSubject<Course[]>([]);
+  AllCoursesSubject = new BehaviorSubject<Course[]>([]);
   AllCourses$ = this.AllCoursesSubject.asObservable();
 
-  private AllmsgSubject = new BehaviorSubject<Message[]>([]);
+  AllmsgSubject = new BehaviorSubject<Message[]>([]);
   Allmsg$ = this.AllmsgSubject.asObservable();
 
-  private reportedMessagaSubject = new BehaviorSubject<Message[]>([]);
+  reportedMessagaSubject = new BehaviorSubject<Message[]>([]);
   reportedMessage$ = this.reportedMessagaSubject.asObservable();
 
   private accountMsgSubject = new BehaviorSubject<Message[]>([]);
@@ -35,23 +35,28 @@ export class ReportSharedService {
   ) {}
 
   deleteMessage(id: number): void {
-    console.log(id)
     const updatedReportedMessages = this.reportedMessagaSubject.value.filter(message => message.id !== id);
     const updatedAccountMessages = this.accountMsgSubject.value.filter(message => message.id !== id);
-    const updatedAll=this.AllmsgSubject.value.filter(message => message.id !== id);
     this.reportedMessagaSubject.next(updatedReportedMessages);
     this.accountMsgSubject.next(updatedAccountMessages);
-    this.AllmsgSubject.next(updatedAll)
+    this.AllmsgSubject.next(this.AllmsgSubject.value.filter(message => message.id !== id));
   }
-  deleteDocument(id: number): void {
-    const updatedReportedMessages = this.reportedCoursesSubject.value.filter(doc =>doc.id !== id);
-    const updatedAccountMessages = this.accountDocSubject.value.filter(doc =>doc.id !== id);
-    const updatedAll=this.AllCoursesSubject.value.filter(message => message.id !== id);
-    this.reportedCoursesSubject.next(updatedReportedMessages);
-    this.accountDocSubject.next(updatedAccountMessages);
-    this.AllCoursesSubject.next(updatedAll)
 
+  deleteDocument(id: number): void {
+    const updatedReportedDocuments = this.reportedCoursesSubject.value.filter(doc => doc.id !== id);
+    const updatedAccountDocuments = this.accountDocSubject.value.filter(doc => doc.id !== id);
+    this.reportedCoursesSubject.next(updatedReportedDocuments);
+    this.accountDocSubject.next(updatedAccountDocuments);
   }
+
+  public updateAllCourses(courses: Course[]): void {
+    this.AllCoursesSubject.next(courses);
+  }
+
+  public updateAllMessages(messages: Message[]): void {
+    this.AllmsgSubject.next(messages);
+  }
+
   getReport(): Observable<Course[]> {
     return this.d.getReport();
   }
@@ -59,16 +64,13 @@ export class ReportSharedService {
   updateAccountDocSubject(data: Course[]): void {
     this.accountDocSubject.next(data);
   }
+
   updateMsgSubject(data: any[]): void {
     this.accountMsgSubject.next(data);
   }
+
   getMessage(): Observable<Message[]> {
     return this.d.getReportMessage();
-  }
-
-  getAllMessge(): Observable<Message[]>{
-    return this.Allmsg$=this.t.getMessages()
-    
   }
 
   getAccountMsg(): Observable<Message[]> {
@@ -98,4 +100,10 @@ export class ReportSharedService {
     this.addReportedCourse(course);
     this.c.putCour(course.id).subscribe();
   }
+  getAllMessge(): Observable<Message[]> {
+    this.Allmsg$ = this.t.getMessages();
+    console.log(this.Allmsg$)
+    return this.Allmsg$
+  }
+
 }

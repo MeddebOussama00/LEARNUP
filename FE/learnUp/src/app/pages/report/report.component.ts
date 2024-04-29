@@ -18,13 +18,20 @@ export interface doc {
   templateUrl: './report.component.html',
   styleUrls: ['./report.component.css']
 })
-export class ReportComponent{
+export class ReportComponent implements OnInit{
   r: any[] = [];
-  sh:any[]=[]
+  sh: any[] = [];
+  
   constructor(
     private dataService: DataService,
     private sharedService: ReportSharedService
-  ) {
+  ) {}
+  
+  ngOnInit() {
+    this.loadData();
+  }
+
+  loadData() {
     this.sharedService.getReport().subscribe((reportedCourses: any[]) => {
       this.r = reportedCourses;
     });
@@ -32,21 +39,17 @@ export class ReportComponent{
       this.sh = reportedMessage;
     });
   }
-  
+
   courDeleted(id: number): void {
     this.dataService.deletedCour(id).subscribe(() => {
-      this.r = this.r.filter((course) => course.id !== id);
+      this.r = this.r.filter(course => course.id !== id);
     });
   }
-
 
   MessageDeleted(id: number): void {
-    console.log("report")
-    console.log(id)
     this.dataService.deletedMessage(id).subscribe(() => {
-      this.sh = this.sh.filter((m) => m.id !== id);
+      this.sh = this.sh.filter(m => m.id !== id);
     });
-    this.sharedService.deleteMessage(id); // Update here
+    this.sharedService.deleteMessage(id);
   }
-  }
-  
+}
