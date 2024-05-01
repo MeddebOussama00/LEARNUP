@@ -63,19 +63,16 @@ signup(){
       this.loginService.login(email, password).subscribe(
         (response: any) => {
           if (response && response.message === 'Login successful.') {
-            console.log(response.message);
-            if (this.loginService.getId()) {
-              this.id = this.loginService.getId();
-            }
-            if (this.loginService.getType()) {
-              this.type = this.loginService.getType();
-            }
-            this.route.navigate(['/Search']);
+              const id = response.id;
+              const type = response.type;
+              this.loginService.setId(id);
+              this.loginService.setType(type)
+              this.route.navigate(['/Search']);
           } else {
-            this.error = 'Email or password is incorrect. Please try again.';
+              this.error = 'Email or password is incorrect. Please try again.';
           }
           this.submitting = false;
-        },
+       },
         (error) => {
           console.error('Error occurred during login:', error);
           if (error.status === 401) {

@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { subscribe } from 'diagnostics_channel';
+import { LoginService } from './login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,11 +16,8 @@ export class ChatService {
   private url = 'http://localhost/learnUp/chat.php'; // Adjust URL as needed
   private datePipe = new DatePipe('en-US'); // Create a DatePipe instance
 
-  constructor(private http: HttpClient) {}
-  generateSimpleId(): number {
-    const randomInt = Math.floor(Math.random() * 100000000000) + 1;
-    return randomInt;
-  }
+  constructor(private http: HttpClient,private l :LoginService) {}
+
   getMessages(): Observable<Message[]> {
     return this.http.get<any[]>(`${this.url}?query=get`).pipe(
       map(response => {
@@ -55,6 +53,7 @@ export class ChatService {
   }
 
   addMessage(content: string): Observable<Message> {
+    const userId = this.l.getId()
     const newMessage: Message = {
       id: 0,
       sender: 'admin',
@@ -63,7 +62,7 @@ export class ChatService {
       nblike: 0,
       nbdislike: 0,
       report: 0,
-      id_user: 1,
+      id_user: parseInt(this.l.getId() || '1'),
       comments: [],
     };
     this.messages.push(newMessage);
@@ -86,7 +85,7 @@ export class ChatService {
       id: 0,
       content: content,
       date: new Date(),
-      id_user: 1,
+      id_user:parseInt(this.l.getId() || '1'),
       idM: messageId,
     };
 
@@ -149,7 +148,7 @@ export class ChatService {
             nblike: item.nblike,
             nbdislike: item.nbdislike,
             report:item.report,
-            id_user: item.id_user, // Assuming "id_user" is available in the response
+            id_user: item.id_user,
             comments: item.responses.map((responseItem: any) => {
               const comment: Commentaire = {
                 id: responseItem.id_r,

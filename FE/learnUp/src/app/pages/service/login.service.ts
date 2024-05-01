@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { subscribe } from 'node:diagnostics_channel';
 import { Observable, tap } from 'rxjs';
 
 @Injectable({
@@ -12,12 +13,14 @@ export class LoginService {
 
   constructor(private http: HttpClient,private router: Router ) { }
 
-  private setId(id: string | undefined): void {
+   setId(id: string | undefined): void {
+     
     this.id = id || null;
   }
 
-  private setType(type: string | undefined): void {
-    this.type = type || null;
+   setType(type: string | undefined): void {
+
+      this.type = type || null;
   }
 
   login(email: string, password: string): Observable<{ message: string, id?: string, type?: string }> {
@@ -51,5 +54,8 @@ export class LoginService {
     return this.http.get('http://localhost/learnUp/logout.php' ).subscribe(()=>{
       this.router.navigate(['/'])
     })
+  }
+  signup(userData: any): Observable<any> {
+    return this.http.post<any>('http://localhost/learnUp/register.php', userData, { headers: { 'Content-Type': 'application/json' } });
   }
 }

@@ -28,20 +28,21 @@ export class DataService  {
   constructor(private c: CourService, private http: HttpClient,private l:LoginService ) { 
   } 
   getProfileDoc(): Observable<any> {
-    const c = 1;
+    const c = this.l.getId()
+    console.log(c)
     if (c) {
       const params = new HttpParams().set('query', 'getaccountDoc').set('c', c.toString());
       return this.http.get(`${this.url}`, { params }).pipe(
         catchError(error => {
           console.error('Error getting profile messages:', error);
-          return of(null); // Return an empty observable or handle the error as needed
+          return of(null); 
         })
       );
     }
     return of(null);
   }
   getProfileMsg(): Observable<any> {
-    const c = 1;
+    const c = this.l.getId()
     if (c) {
       const params = new HttpParams().set('query', 'getaccount').set('c', c.toString());
       return this.http.get(`${this.url2}`, { params }).pipe(
@@ -118,7 +119,7 @@ export class DataService  {
       nblike: course.nblike,
       nbdislike: course.nbdislike,
       report: course.report,
-      id_U: course.id_U,
+      id_U: this.l.getId(),
       id_sub: course.id_sub,
       data:base64Data
     };

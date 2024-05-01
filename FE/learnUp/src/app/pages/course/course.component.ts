@@ -112,7 +112,6 @@ export class CourseComponent implements OnInit {
 
   onAddCourse() {
     if (this.selectedCourse) {
-      console.log( this.selectedCourse)
       this.d.upload(this.selectedCourse).subscribe(
         (response) => {
           console.log('Course added successfully:', response);
