@@ -1,9 +1,4 @@
-.vertical-line {
-    border-left: 1px solid #ccc;
-    height: 100%;
-    margin-top: 20px; /* Adjust spacing between sections */
-    margin-bottom: 20px; /* Adjust spacing between section*/
-}
+
  .avatar-circle {
         width: 150px;
         height: 150px;
